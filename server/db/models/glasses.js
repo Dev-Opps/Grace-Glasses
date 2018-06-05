@@ -1,4 +1,4 @@
-const db = require("../db/db.js");
+const db = require("../db.js");
 const Sequelize = require("sequelize");
 
 const Glasses = db.define('glasses', {
@@ -23,7 +23,7 @@ const Glasses = db.define('glasses', {
 
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
     validate: {
       min: 0,
       isNumeric: true
