@@ -1,7 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Glasses} = require('../server/db/models')
+
 
 /**
  * Welcome to the seed file! This seed file uses a newer language feature called...
@@ -24,33 +25,78 @@ async function seed () {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+
+  const glasses = await Promise.all([
+    Glasses.create({
+      title: 'Aviator Gaze', 
+      description: 'Stylish and compelling', 
+      price: Math.floor(Math.random() * Math.floor(10000)),
+      quantity: Math.floor(Math.random() * Math.floor(100)),
+      upc: Math.floor(Math.random() * Math.floor(99999)),
+      category: 'Men'
+    }),
+    Glasses.create({
+      title: 'Erika Optics', 
+      description: 'put the sass in sassy', 
+      price: Math.floor(Math.random() * Math.floor(10000)),
+      quantity: Math.floor(Math.random() * Math.floor(100)),
+      upc: Math.floor(Math.random() * Math.floor(99999)), 
+      category: 'Women'
+    }),
+    Glasses.create({
+      title: 'Santos De Cartier', 
+      description: 'When boujee is not good enough', 
+      price: 99999,
+      quantity: Math.floor(Math.random() * Math.floor(100)),
+      upc: Math.floor(Math.random() * Math.floor(99999)),
+      category: 'Men' 
+    }),
+    Glasses.create({
+      title: 'Panthere de Cartier', 
+      description: 'Metal Sunglasses with a smooth gold finish', 
+      price: Math.floor(Math.random() * Math.floor(10000)),
+      quantity: Math.floor(Math.random() * Math.floor(100)),
+      upc: Math.floor(Math.random() * Math.floor(99999)),
+      category: 'Kids' 
+    }),
+    Glasses.create({
+      title: 'Warby Barker', 
+      description: 'We did not steal this' , 
+      price: Math.floor(Math.random() * Math.floor(10000)),
+      quantity: Math.floor(Math.random() * Math.floor(100)),
+      upc: Math.floor(Math.random() * Math.floor(99999)),
+      category: 'Men' 
+    })
+  ])
+
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${glasses.length} users`)
   console.log(`seeded successfully`)
 }
 
 // Execute the `seed` function, IF we ran this module directly (`node seed`).
 // `Async` functions always return a promise, so we can use `catch` to handle
 // any errors that might occur inside of `seed`.
-if (module === require.main) {
+// if (module === require.main) {
   seed()
-  .catch(err => {
-    console.error(err)
-    process.exitCode = 1
-  })
-  .finally(() => { // `finally` is like then + catch. It runs no matter what.
-    console.log('closing db connection')
-    db.close()
-    console.log('db connection closed')
-  })
+//   .catch(err => {
+//     console.error(err)
+//     process.exitCode = 1
+//   })
+//   .finally(() => { // `finally` is like then + catch. It runs no matter what.
+//     console.log('closing db connection')
+//     db.close()
+//     console.log('db connection closed')
+//   })
   /*
    * note: everything outside of the async function is totally synchronous
    * The console.log below will occur before any of the logs that occur inside
    * of the async function
    */
   console.log('seeding...')
-}
+// }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed
