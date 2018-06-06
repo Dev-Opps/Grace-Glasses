@@ -36,7 +36,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link" href="#">All</a>
+          <Link to="/all">
+            <div className="nav-link" href="#">All</div>
+          </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">Men</a>
