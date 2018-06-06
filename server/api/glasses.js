@@ -7,18 +7,6 @@ router.get("/", (req, res, next) => {
     .catch(next);
 });
 
-<<<<<<< HEAD
-router.get('/:category', (req, res, next) => {
-  Glasses.findAll({
-    where: {
-      category: req.params.category
-    }
-  })
-  .then(glasses => res.json(glasses))
-  .catch(next);
-});
-
-=======
 // this will work for all routes, which contain id "param", like '/api/glasses/:id'
 router.param("id", (req, res, next, id) => {
   Glasses.findById(id)
@@ -52,5 +40,4 @@ router
     })
   });
 
->>>>>>> master
 module.exports = router;
