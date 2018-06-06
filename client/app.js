@@ -10,10 +10,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Navbar />
-        <Route exact path="/login" component={Routes} />
-        <Switch>
-          <Route exact path="/all" component={AllGlasses} />
-        </Switch>
+        <Routes />
         <Footer />
       </div>
     </BrowserRouter>
