@@ -6,8 +6,10 @@ export default class AllGlasses extends Component {
   constructor() {
     super();
     this.state = {
-      glasses: []
+      glasses: [],
+      category: ""
     };
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
@@ -15,125 +17,93 @@ export default class AllGlasses extends Component {
       .get("/api/glasses")
       .then(res => res.data)
       .then(glasses => {
-        console.log(glasses);
         this.setState({ glasses: glasses });
       })
       .catch(err => console.log(err));
   }
 
+  handleSelect(ev) {
+    this.setState({category: ev.target.value});
+  }
+
   render() {
+    let filteredGlasses = this.state.glasses.filter(glasses => glasses.category == this.state.category).map(glasses => {
+                return (
+                  <div className="col-4" key={glasses.id}>
+                    <div className="card" id="card">
+                      <img
+                        className="card-img-top"
+                        id="student-card-picture"
+                        src={glasses.imageUrl}
+                        alt="Card image cap"
+                      />
+                      <div className="card-body text-center">
+                        <h5 className="card-title">{glasses.title}</h5>
+                        <h5 className="card-description">{glasses.description}</h5>
+                        <Link to={`/glasses/${glasses.id}`}>
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            id="card-visit"
+                          >
+                            View glasses
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+      let unfilteredGlasses = this.state.glasses.map(glasses => {
+                  return (
+                    <div className="col-4" key={glasses.id}>
+                      <div className="card" id="card">
+                        <img
+                          className="card-img-top"
+                          id="student-card-picture"
+                          src={glasses.imageUrl}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body text-center">
+                          <h5 className="card-title">{glasses.title}</h5>
+                          <h5 className="card-description">{glasses.description}</h5>
+                          <Link to={`/glasses/${glasses.id}`}>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              id="card-visit"
+                            >
+                              View glasses
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+
+    let toRender = this.state.category === "" ? unfilteredGlasses : filteredGlasses;
+
     return (
       <div className="container-fluid">
+
         <div className="row add-row">
-          <div id="category-sorter">
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown button
-              </button>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
+          <form>
+            <div className= "form-group">
+              <select className="form-control" aria-labelledby="dropdownMenuButton" onChange={this.handleSelect}>
+                <option className="dropdown-item" href="#" value="">All</option>
+                <option className="dropdown-item" href="#" value="Men">Men</option>
+                <option className="dropdown-item" href="#" value="Women">Women</option>
+                <option className="dropdown-item" href="#" value="Kids">Kids</option>
+              </select>
             </div>
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown button
-              </button>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown button
-              </button>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </div>
-          </div>
-          {this.state.glasses.map(glasses => {
-            console.log("x", glasses);
-            return (
-              <div className="col-4" key={glasses.id}>
-                <div className="card" id="card">
-                  <img
-                    className="card-img-top"
-                    id="student-card-picture"
-                    src={glasses.imageUrl}
-                    alt="Card image cap"
-                  />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">{glasses.title}</h5>
-                    <h5 className="card-description">{glasses.description}</h5>
-                    <Link to={`/glasses/${glasses.id}`}>
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                        id="card-visit"
-                      >
-                        View glasses
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          </form>
         </div>
+
+        <div className="row add-row">
+          {toRender}
+        </div>
+
       </div>
     );
   }
