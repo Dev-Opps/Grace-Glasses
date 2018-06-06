@@ -7,4 +7,14 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/:category', (req, res, next) => {
+  Glasses.findAll({
+    where: {
+      category: req.params.category
+    }
+  })
+  .then(glasses => res.json(glasses))
+  .catch(next);
+});
+
 module.exports = router;
