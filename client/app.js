@@ -1,23 +1,17 @@
-import React from "react";
+import React from 'react'
 
-import { Navbar, Footer, AllGlasses } from "./components";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {Navbar, Footer} from './components'
 
-import Routes from "./routes";
+import Routes from './routes'
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <div>
-        <Navbar />
-        <Route exact path="/login" component={Routes} />
-        <Switch>
-          <Route exact path="/all" component={AllGlasses} />
-        </Switch>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
-};
+    <div>
+      <Navbar />
+      <Routes />
+      <Footer />
+    </div>
+  )
+}
 
-export default App;
+export default App
