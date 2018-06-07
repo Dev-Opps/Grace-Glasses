@@ -47,8 +47,8 @@ const SingleItemView = (props) => {
            {
              props.isAdmin ?
              <div>
-              <a href="#" className="btn btn-danger">DELETE</a>
-              <a href="#" className="btn btn-warning">EDIT</a>
+                  <a href="#" className="btn btn-danger adminBtn">DELETE</a>
+                  <a href="#" className="btn btn-warning adminBtn">EDIT</a>
              </div>
              : null
            }
