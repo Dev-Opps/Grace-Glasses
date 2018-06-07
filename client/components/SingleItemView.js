@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SingleItemView = (props) => {
+  console.log(props)
   return(
   <div className="row justify-content-center">
     <div className="col-5">
@@ -14,7 +15,7 @@ const SingleItemView = (props) => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src={singleGlass.imgageUrl} alt="First slide" />
+            <img className="d-block w-100" src="" alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />

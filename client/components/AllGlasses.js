@@ -67,7 +67,15 @@ export default class AllGlasses extends Component {
                         <div className="card-body text-center">
                           <h5 className="card-title">{glasses.title}</h5>
                           <h5 className="card-description">{glasses.description}</h5>
-                          <Link to={`/glasses/${glasses.id}`} glass={glasses}>
+
+                          {/* it requires double brackets, because it's the Link
+                          to an object: https://reacttraining.com/react-router/web/api/Link
+                           */}
+                          
+                          <Link to={{
+                              pathname: `/glasses/${glasses.id}`, 
+                              state: glasses 
+                            }}>
                             <button
                               type="submit"
                               className="btn btn-primary"
