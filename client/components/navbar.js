@@ -54,16 +54,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             aria-label="Search"
           />
           <button
-            className="btn btn-outline-success my-2 my-sm-0"
+            className="btn btn-secondary my-2 my-sm-0"
             type="submit"
           >
             Search
-          </button>{" "}
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Cart
+          </button>
+          <button type="button" className="btn btn-info">
+            Cart <span className="badge badge-light">9</span>
+            <span className="sr-only">number of items in cart</span>
           </button>
           {isLoggedIn ? (
             <div>

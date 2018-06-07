@@ -8,7 +8,7 @@ import React from 'react';
 
 const SingleItemView = (props) => (
   <div className="row justify-content-center">
-    <div className="col-5">
+    <div className="col-6">
       <div id="carouselExampleIndicators" className="carousel slide" data-interval="false">
         <ol className="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
