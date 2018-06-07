@@ -1,25 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+
 import { Link } from 'react-router-dom'
 
 export default class AllGlasses extends Component {
   constructor() {
     super();
     this.state = {
-      glasses: [],
       category: ""
     };
     this.handleSelect = this.handleSelect.bind(this);
-  }
-
-  componentDidMount() {
-    axios
-      .get("/api/glasses")
-      .then(res => res.data)
-      .then(glasses => {
-        this.setState({ glasses: glasses });
-      })
-      .catch(err => console.log(err));
   }
 
   handleSelect(ev) {
@@ -27,7 +17,8 @@ export default class AllGlasses extends Component {
   }
 
   render() {
-    let filteredGlasses = this.state.glasses.filter(glasses => glasses.category == this.state.category).map(glasses => {
+    console.log("FOR YOU RICHARD", this.props)
+    let filteredGlasses = this.props.allGlasses.filter(glasses => glasses.category === this.state.category).map(glasses => {
                 return (
                   <div className="col-4" key={glasses.id}>
                     <div className="card" id="card">
@@ -54,7 +45,7 @@ export default class AllGlasses extends Component {
                   </div>
                 );
               })
-      let unfilteredGlasses = this.state.glasses.map(glasses => {
+      let unfilteredGlasses = this.props.allGlasses.map(glasses => {
                   return (
                     <div className="col-4" key={glasses.id}>
                       <div className="card" id="card">
@@ -108,3 +99,4 @@ export default class AllGlasses extends Component {
     );
   }
 }
+
