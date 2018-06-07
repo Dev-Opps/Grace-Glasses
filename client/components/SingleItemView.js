@@ -16,7 +16,7 @@ const SingleItemView = (props) => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src="" alt="First slide" />
+            <img className="d-block w-100" src={imageUrl} alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />
