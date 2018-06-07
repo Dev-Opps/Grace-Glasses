@@ -24,7 +24,7 @@ export default class AllGlasses extends Component {
   handleSelect(ev) {
     this.setState({category: ev.target.value});
   }
-
+  // Best way to pass in props to generate single view page when button is clicked is by passing in the props to the Link's state (but I can't get it to work).
   render() {
     console.log("FOR YOU RICHARD", this.props)
     let filteredGlasses = this.props.allGlasses.filter(glasses => glasses.category === this.state.category).map(glasses => {
@@ -40,7 +40,7 @@ export default class AllGlasses extends Component {
                       <div className="card-body text-center">
                         <h5 className="card-title">{glasses.title}</h5>
                         <h5 className="card-description">{glasses.description}</h5>
-                        <Link to={`/glasses/${glasses.id}`}>
+                        <Link to={{pathname: `/glasses/${glasses.id}`, state: {foo: 'bar'}}}>
                           <button
                             type="submit"
                             className="btn btn-primary"
@@ -67,7 +67,7 @@ export default class AllGlasses extends Component {
                         <div className="card-body text-center">
                           <h5 className="card-title">{glasses.title}</h5>
                           <h5 className="card-description">{glasses.description}</h5>
-                          <Link to={`/glasses/${glasses.id}`}>
+                          <Link to={`/glasses/${glasses.id}`} glass={glasses}>
                             <button
                               type="submit"
                               className="btn btn-primary"
