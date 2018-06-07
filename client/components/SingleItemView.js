@@ -6,7 +6,10 @@ import React from 'react';
 //   )
 // }
 
-const SingleItemView = (props) => (
+const SingleItemView = (props) => { 
+  const { singleGlass } = props.location.state
+  console.log(singleGlass)
+  return(
   <div className="row justify-content-center">
     <div className="col-5">
       <div id="carouselExampleIndicators" className="carousel slide" data-interval="false">
@@ -17,7 +20,7 @@ const SingleItemView = (props) => (
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src="https://static.zennioptical.com/marketing/campaign/premium-sunglasses/Premium-Sunglasses-Men/premium-sunglasses-plp-men-md.jpg" alt="First slide" />
+            <img className="d-block w-100" src={singleGlass.imgageUrl} alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />
@@ -39,18 +42,18 @@ const SingleItemView = (props) => (
     <div className="col-5">
        <div className="card">
          <div className="card-header">
-           Brand
+           Awesome Brand
          </div>
          <div className="card-body">
-           <h5 className="card-title">Item Name</h5>
-           <h5 className="card-title">$159.90</h5>
-           <p className="card-text">This is where we'll put the item description.</p>
+           <h5 className="card-title">{singleGlass.title}</h5>
+           <h5 className="card-title">{`$ ${singleGlass.price}`}</h5>
+           <p className="card-text">{singleGlass.description}</p>
            <a href="#" className="btn btn-primary">ADD TO CART</a>
          </div>
        </div>
     </div>
   </div>
-)
+)}
 
 // const SingleItemView = function(props){
 //   console.log(props);
