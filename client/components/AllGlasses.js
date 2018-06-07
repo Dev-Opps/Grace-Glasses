@@ -40,7 +40,7 @@ export default class AllGlasses extends Component {
                       <div className="card-body text-center">
                         <h5 className="card-title">{glasses.title}</h5>
                         <h5 className="card-description">{glasses.description}</h5>
-                        <Link to={{pathname: `/glasses/${glasses.id}`, state: {foo: 'bar'}}}>
+                        <Link to={{pathname: `/glasses/${glasses.id}`, state: {singleGlass: glasses}}}>
                           <button
                             type="submit"
                             className="btn btn-primary"

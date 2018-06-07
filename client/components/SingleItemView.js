@@ -1,12 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-// const SingleItemView = (props) => {
-//   return (
-//     <h1>POKEMON</h1>
-//   )
-// }
-
-const SingleItemView = (props) => (
+const SingleItemView = (props) => {
+  return(
   <div className="row justify-content-center">
     <div className="col-5">
       <div id="carouselExampleIndicators" className="carousel slide" data-interval="false">
@@ -17,7 +14,7 @@ const SingleItemView = (props) => (
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src="https://static.zennioptical.com/marketing/campaign/premium-sunglasses/Premium-Sunglasses-Men/premium-sunglasses-plp-men-md.jpg" alt="First slide" />
+            <img className="d-block w-100" src={singleGlass.imgageUrl} alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />
@@ -39,21 +36,31 @@ const SingleItemView = (props) => (
     <div className="col-5">
        <div className="card">
          <div className="card-header">
-           Brand
+           Awesome Brand
          </div>
          <div className="card-body">
            <h5 className="card-title">Item Name</h5>
            <h5 className="card-title">$159.90</h5>
            <p className="card-text">This is where we'll put the item description.</p>
-           <a href="#" className="btn btn-primary">ADD TO CART</a>
+           <a href="#" className="btn btn-primary">ADD TO CART</a> {' '}
+           {
+             props.isAdmin ?
+             <div>
+                  <a href="#" className="btn btn-danger adminBtn">DELETE</a>
+                  <a href="#" className="btn btn-warning adminBtn">EDIT</a>
+             </div>
+             : null
+           }
          </div>
        </div>
     </div>
   </div>
-)
+)}
 
-// const SingleItemView = function(props){
-//   console.log(props);
-// }
+const mapState = state => {
+  return {
+    isAdmin: state.user.isAdmin
+  };
+};
 
-export default SingleItemView;
+export default connect(mapState)(SingleItemView);
