@@ -46,3 +46,8 @@ button {
 .card {
   margin-bottom: 2em;
 }
+
+.adminBtn {
+    margin-top: 1em;
+    margin-right: 1em;
+}
