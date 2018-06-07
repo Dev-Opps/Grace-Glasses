@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllGlasses, SingleItemView} from './components'
-import {me} from './store'
+import {Login, Signup, UserHome, SingleItemView } from './components'
+import {me, AllGlassesContainer, allGlassesThunk} from './store'
 
 /**
  * COMPONENT
@@ -21,8 +21,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/all" component={AllGlasses} />
-        <Route path ="/glasses" component={SingleItemView} />
+        <Route path="/glasses" component={SingleItemView} />
+        <Route exact path="/all" component={AllGlassesContainer} />
         {
           isLoggedIn &&
             <Switch>
@@ -53,6 +53,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(allGlassesThunk())
     }
   }
 }
