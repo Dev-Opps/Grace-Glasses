@@ -12,6 +12,15 @@ export default class AllGlasses extends Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
+  static getDerivedStateFromProps(props, state) {
+    let targetCategory = props.location.pathname.slice(5);
+    if (state.category !== targetCategory) {
+      return {
+        category: targetCategory
+      }
+    }
+  }
+
   handleSelect(ev) {
     this.setState({category: ev.target.value});
   }
@@ -99,4 +108,3 @@ export default class AllGlasses extends Component {
     );
   }
 }
-
