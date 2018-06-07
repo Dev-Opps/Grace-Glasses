@@ -5,20 +5,14 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_GLASSES = 'GET_GLASSES'
-
-
 /**
  * INITIAL STATE
  */
-const initialState = {
-    allGlasses: []
-}
 
 /**
  * ACTION CREATORS
  */
 const getGlasses = glasses => ({type: GET_GLASSES, payload: glasses })
-
 /**
  * THUNK CREATORS
  */
@@ -38,7 +32,7 @@ export const allGlassesThunk = () => {
 export default function (state = [], action) {
   switch (action.type) {
     case GET_GLASSES:
-      return action.payload 
+      return action.payload
     default:
       return state
   }
