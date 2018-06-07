@@ -3,10 +3,10 @@ import { allGlassesThunk } from './glasses';
 import {AllGlasses} from '../components/'
 import React from 'react'
 
-console.dir(AllGlasses);
 const mapStateToProps = state => {
     return {
-        allGlasses: state.allGlasses
+        allGlasses: state.allGlasses,
+        user: state.user.isAdmin
     }
 }
 

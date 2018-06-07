@@ -26,7 +26,7 @@ export default class AllGlasses extends Component {
   }
   // Best way to pass in props to generate single view page when button is clicked is by passing in the props to the Link's state (but I can't get it to work).
   render() {
-    console.log("FOR YOU RICHARD", this.props)
+    let addGlassesBtn = this.props.user ? <button className="btn btn-primary">+</button> : null
     let filteredGlasses = this.props.allGlasses.filter(glasses => glasses.category === this.state.category).map(glasses => {
                 return (
                   <div className="col-4" key={glasses.id}>
@@ -98,6 +98,7 @@ export default class AllGlasses extends Component {
               </select>
             </div>
           </form>
+          <Link to="/glasses/form">{addGlassesBtn}</Link>
         </div>
 
         <div className="row add-row">

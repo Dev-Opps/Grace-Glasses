@@ -7,6 +7,16 @@ router.get("/", (req, res, next) => {
     .catch(next);
 });
 
+router.post("/", (req, res, next) => {
+  console.log("hello world!!!")
+  Glasses.create(req.body)
+    .then(glasses => {
+      console.log(glasses)
+      res.json(glasses)
+    })
+    .catch(next);
+});
+
 // this will work for all routes, which contain id "param", like '/api/glasses/:id'
 router.param("id", (req, res, next, id) => {
   Glasses.findById(id)
