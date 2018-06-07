@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SingleItemView = (props) => {
-  console.log('POKEMON', props);
   return(
   <div className="row justify-content-center">
     <div className="col-5">
@@ -15,7 +14,7 @@ const SingleItemView = (props) => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src="https://static.zennioptical.com/marketing/campaign/premium-sunglasses/Premium-Sunglasses-Men/premium-sunglasses-plp-men-md.jpg" alt="First slide" />
+            <img className="d-block w-100" src={singleGlass.imgageUrl} alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />
@@ -37,7 +36,7 @@ const SingleItemView = (props) => {
     <div className="col-5">
        <div className="card">
          <div className="card-header">
-           Brand
+           Awesome Brand
          </div>
          <div className="card-body">
            <h5 className="card-title">Item Name</h5>
