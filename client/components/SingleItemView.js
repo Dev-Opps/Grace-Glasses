@@ -1,14 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-// const SingleItemView = (props) => {
-//   return (
-//     <h1>POKEMON</h1>
-//   )
-// }
-
-const SingleItemView = (props) => { 
-  const { singleGlass } = props.location.state
-  console.log(singleGlass)
+const SingleItemView = (props) => {
   return(
   <div className="row justify-content-center">
     <div className="col-5">
@@ -45,18 +39,28 @@ const SingleItemView = (props) => {
            Awesome Brand
          </div>
          <div className="card-body">
-           <h5 className="card-title">{singleGlass.title}</h5>
-           <h5 className="card-title">{`$ ${singleGlass.price}`}</h5>
-           <p className="card-text">{singleGlass.description}</p>
-           <a href="#" className="btn btn-primary">ADD TO CART</a>
+           <h5 className="card-title">Item Name</h5>
+           <h5 className="card-title">$159.90</h5>
+           <p className="card-text">This is where we'll put the item description.</p>
+           <a href="#" className="btn btn-primary">ADD TO CART</a> {' '}
+           {
+             props.isAdmin ?
+             <div>
+                  <a href="#" className="btn btn-danger adminBtn">DELETE</a>
+                  <a href="#" className="btn btn-warning adminBtn">EDIT</a>
+             </div>
+             : null
+           }
          </div>
        </div>
     </div>
   </div>
 )}
 
-// const SingleItemView = function(props){
-//   console.log(props);
-// }
+const mapState = state => {
+  return {
+    isAdmin: state.user.isAdmin
+  };
+};
 
-export default SingleItemView;
+export default connect(mapState)(SingleItemView);
