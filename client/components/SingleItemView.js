@@ -1,12 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-// const SingleItemView = (props) => {
-//   return (
-//     <h1>POKEMON</h1>
-//   )
-// }
-
-const SingleItemView = (props) => (
+const SingleItemView = (props) => {
+  console.log('POKEMON', props);
+  return(
   <div className="row justify-content-center">
     <div className="col-5">
       <div id="carouselExampleIndicators" className="carousel slide" data-interval="false">
@@ -45,15 +43,25 @@ const SingleItemView = (props) => (
            <h5 className="card-title">Item Name</h5>
            <h5 className="card-title">$159.90</h5>
            <p className="card-text">This is where we'll put the item description.</p>
-           <a href="#" className="btn btn-primary">ADD TO CART</a>
+           <a href="#" className="btn btn-primary">ADD TO CART</a> {' '}
+           {
+             props.isAdmin ?
+             <div>
+              <a href="#" className="btn btn-danger">DELETE</a>
+              <a href="#" className="btn btn-warning">EDIT</a>
+             </div>
+             : null
+           }
          </div>
        </div>
     </div>
   </div>
-)
+)}
 
-// const SingleItemView = function(props){
-//   console.log(props);
-// }
+const mapState = state => {
+  return {
+    isAdmin: state.user.isAdmin
+  };
+};
 
-export default SingleItemView;
+export default connect(mapState)(SingleItemView);
