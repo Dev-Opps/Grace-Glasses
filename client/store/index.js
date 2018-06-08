@@ -5,7 +5,6 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import allGlasses from './glasses'
 import singleGlasses from './singleGlasses'
-import AllGlassesContainer from './AllGlassesContainer'
 
 const reducer = combineReducers({user, allGlasses, singleGlasses})
 const middleware = composeWithDevTools(applyMiddleware(
@@ -18,4 +17,3 @@ export default store
 export * from './user'
 export * from './glasses'
 export * from './singleGlasses'
-export {default as AllGlassesContainer} from './AllGlassesContainer'

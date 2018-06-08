@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { singleGlassesThunk } from '../store';
-import SingleItemView from './SingleItemView';
+import {SingleItemView} from './';
 
-class SingleProductView extends Component {
+class SingleItemContainer extends Component {
   constructor() {
     super();
   }
@@ -46,4 +46,4 @@ const mapDispatch = (dispatch, ownProps) => {
 export default connect(
   mapState,
   mapDispatch
-)(SingleProductView);
+)(SingleItemContainer);
