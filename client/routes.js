@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleItemContainer, GlassesForm } from './components'
-import {me, AllGlassesContainer, allGlassesThunk} from './store'
+import {Login, Signup, UserHome, AllGlassesContainer, SingleItemContainer, GlassesForm } from './components'
+import {me} from './store'
 
 /**
  * COMPONENT
@@ -55,7 +55,6 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
-      dispatch(allGlassesThunk())
     }
   }
 }
