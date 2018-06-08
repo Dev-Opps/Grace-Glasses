@@ -40,7 +40,10 @@ export default class AllGlasses extends Component {
                       <div className="card-body text-center">
                         <h5 className="card-title">{glasses.title}</h5>
                         <h5 className="card-description">{glasses.description}</h5>
-                        <Link to={{pathname: `/glasses/${glasses.id}`, state: {singleGlass: glasses}}}>
+                        <Link to={{
+                          pathname: `/glasses/${glasses.id}`,
+                          state: glasses.id
+                          }}>
                           <button
                             type="submit"
                             className="btn btn-primary"
@@ -70,11 +73,14 @@ export default class AllGlasses extends Component {
 
                           {/* it requires double brackets, because it's the Link
                           to an object: https://reacttraining.com/react-router/web/api/Link
+
+                          However we need to configure it differently, 
+                          because we'll not recive any state if we paste the link to URL bar directly.
                            */}
                           
                           <Link to={{
                               pathname: `/glasses/${glasses.id}`, 
-                              state: glasses 
+                              state: glasses.id
                             }}>
                             <button
                               type="submit"
