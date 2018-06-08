@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { singleGlassesThunk } from '../store';
+import { singleGlassesThunk, addItemToCartThunk } from '../store';
 import {SingleItemView} from './';
 
 class SingleItemContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
     this.props.loadSingleGlasses();
   }
 
+
   render() {
     return (
       <SingleItemView
         singleGlasses={this.props.singleGlasses}
         isAdmin={this.props.isAdmin}
+        addItemToCart={this.props.addItemToCart}
       />
     );
   }
@@ -31,17 +33,23 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   // this is a state which CONTAINER component receive from AllGlasses component
   // through the Link props.
-  const glassesId = ownProps.location.state;
+  const path = ownProps.location.pathname
+  // will be broken for 2 digit num!!!! just a temp fix
+  const glassesId = path[path.length - 1];
   return {
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
+    },
+    addItemToCart: (item) => {
+      console.log('STATEFULL')
+      dispatch(addItemToCartThunk(item))
     }
   };
 };
 
 // very weird, that we don't have id from ownProps.match...
 // probably routing stuff
-// feel like will look at it later.
+// feel like will look at history file later.
 
 export default connect(
   mapState,
