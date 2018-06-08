@@ -8,9 +8,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <nav />
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <Link to="/all">
       <a className="navbar-brand" href="#">
         LOGO
       </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"

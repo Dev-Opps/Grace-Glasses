@@ -24,7 +24,6 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/glasses" component={SingleItemContainer} />
         <Route path="/all" component={AllGlassesContainer} />
-
         {
           isLoggedIn &&
             <Switch>
