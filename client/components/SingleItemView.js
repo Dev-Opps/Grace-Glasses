@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SingleItemView = (props) => {
+  console.log(props)
+  const {id, title, imageUrl, description, price, upc} = props.location.state
   return(
   <div className="row justify-content-center">
     <div className="col-5">
@@ -14,7 +16,7 @@ const SingleItemView = (props) => {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src={singleGlass.imgageUrl} alt="First slide" />
+            <img className="d-block w-100" src={imageUrl} alt="First slide" />
           </div>
           <div className="carousel-item">
             <img className="d-block w-100" src="http://via.placeholder.com/1185x690" alt="Second slide" />
@@ -39,9 +41,9 @@ const SingleItemView = (props) => {
            Awesome Brand
          </div>
          <div className="card-body">
-           <h5 className="card-title">Item Name</h5>
-           <h5 className="card-title">$159.90</h5>
-           <p className="card-text">This is where we'll put the item description.</p>
+           <h5 className="card-title">{title}</h5>
+           <h5 className="card-title">{`$ ${price}`}</h5>
+           <p className="card-text">{description}</p>
            <a href="#" className="btn btn-primary">ADD TO CART</a> {' '}
            {
              props.isAdmin ?
