@@ -26,22 +26,22 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to="/All">
+            <Link to="/all">
               <div className="nav-link">All</div>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Men">
+            <Link to="/all/Men">
               <div className="nav-link">Men</div>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Women">
+            <Link to="/all/Women">
               <div className="nav-link">Women</div>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Kids">
+            <Link to="/all/Kids">
               <div className="nav-link">Kids</div>
             </Link>
           </li>
