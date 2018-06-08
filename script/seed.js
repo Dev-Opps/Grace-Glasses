@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const {User, Glasses} = require('../server/db/models')
-
+var faker = require('faker');
 
 /**
  * Welcome to the seed file! This seed file uses a newer language feature called...
@@ -15,64 +15,48 @@ const {User, Glasses} = require('../server/db/models')
  *
  * Now that you've got the main idea, check it out in practice below!
  */
+function usersPromises() {
+  let arr = []
+  for (let i =0; i < 10; i++) {
+    arr.push(User.create({
+      email: faker.internet.email(), 
+      password: faker.internet.password()
+    }))
+  }
+  return arr
+}
+
+
+var cats = ['Men', 'Women', 'Kids']
+function glassesPromises() {
+  let arr = []
+  for (let i =0; i < 30; i++) {
+    arr.push(Glasses.create({
+      title: faker.commerce.productName(), 
+      description: faker.commerce.productAdjective(),
+      price : faker.random.number(),
+      quantity : faker.random.number(),
+      upc: faker.commerce.product(),
+      shape: faker.commerce.productMaterial(),
+      category: cats[Math.floor(Math.random()*3)],
+    }))
+  }
+  return arr
+}
 
 async function seed () {
   await db.sync({force: true})
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
-  const glasses = await Promise.all([
-    Glasses.create({
-      title: 'Aviator Gaze', 
-      description: 'Stylish and compelling', 
-      price: Math.floor(Math.random() * Math.floor(10000)),
-      quantity: Math.floor(Math.random() * Math.floor(100)),
-      upc: Math.floor(Math.random() * Math.floor(99999)),
-      category: 'Men'
-    }),
-    Glasses.create({
-      title: 'Erika Optics', 
-      description: 'put the sass in sassy', 
-      price: Math.floor(Math.random() * Math.floor(10000)),
-      quantity: Math.floor(Math.random() * Math.floor(100)),
-      upc: Math.floor(Math.random() * Math.floor(99999)), 
-      category: 'Women'
-    }),
-    Glasses.create({
-      title: 'Santos De Cartier', 
-      description: 'When boujee is not good enough', 
-      price: 99999,
-      quantity: Math.floor(Math.random() * Math.floor(100)),
-      upc: Math.floor(Math.random() * Math.floor(99999)),
-      category: 'Men' 
-    }),
-    Glasses.create({
-      title: 'Panthere de Cartier', 
-      description: 'Metal Sunglasses with a smooth gold finish', 
-      price: Math.floor(Math.random() * Math.floor(10000)),
-      quantity: Math.floor(Math.random() * Math.floor(100)),
-      upc: Math.floor(Math.random() * Math.floor(99999)),
-      category: 'Kids' 
-    }),
-    Glasses.create({
-      title: 'Warby Barker', 
-      description: 'We did not steal this' , 
-      price: Math.floor(Math.random() * Math.floor(10000)),
-      quantity: Math.floor(Math.random() * Math.floor(100)),
-      upc: Math.floor(Math.random() * Math.floor(99999)),
-      category: 'Men' 
-    })
-  ])
+  const users = await Promise.all(usersPromises())
+  const glasses = await Promise.all(glassesPromises())
 
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${glasses.length} users`)
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${glasses.length} products`)
   console.log(`seeded successfully`)
 }
 
