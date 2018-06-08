@@ -1,36 +1,37 @@
-import axios from 'axios'
-import history from '../history'
+import axios from 'axios';
+// import history from '../history'
 
 // ACTION TYPES
-const GET_SINGLE_GLASSES = 'GET_SINGLE_GLASSES'
-
-// INITIAL STATE
-const defaultState = {}
+const GET_SINGLE_GLASSES = 'GET_SINGLE_GLASSES';
 
 // ACTION CREATORS
-const getSingleGlasses = singleGlasses => ({
-    type: GET_SINGLE_GLASSES, 
-    singleGlasses 
-})
+const getSingleGlasses = singleGlasses => {
+  return {
+    type: GET_SINGLE_GLASSES,
+    singleGlasses
+  };
+};
 
-// THUNK CREATORS
-// NEED TO TEST
-// export const singleGlassesThunk = glassesId => {
-//     dispatch => {
-//         axios.get(`/api/glasses/${glassesId}`)
-//         .then(res => {
-//             console.log(res.data)
-//             dispatch(getSingleGlasses(res.data))
-//             history.push(`glasses/${glassesId}`)
-//         })
-//     }
-// }
+export const singleGlassesThunk = (glassesId, history) => {
+  return dispatch => {
+    axios
+      .get(`/api/glasses/${glassesId}`)
+      .then(res => res.data)
+      .then(singleGlasses => {
+        dispatch(getSingleGlasses(singleGlasses));
+        // will probably still need it later?..
+        // history.push(glassesId)
+        // console.log('HISTORY in thunk: ', history)
+      })
+      .catch(err => console.log(err));
+  };
+};
 
-export default (state = defaultState, action) => {
-  switch(action.type) {
+export default (singleGlasses = {}, action) => {
+  switch (action.type) {
     case GET_SINGLE_GLASSES:
-      return action.singleGlasses
+      return action.singleGlasses;
     default:
-      return state
+      return singleGlasses;
   }
-}
+};

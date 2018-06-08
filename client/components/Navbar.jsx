@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -26,16 +26,24 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to="/All"><div className="nav-link">All</div></Link>
+            <Link to="/All">
+              <div className="nav-link">All</div>
+            </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Men"><div className="nav-link">Men</div></Link>
+            <Link to="/All/Men">
+              <div className="nav-link">Men</div>
+            </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Women"><div className="nav-link">Women</div></Link>
+            <Link to="/All/Women">
+              <div className="nav-link">Women</div>
+            </Link>
           </li>
           <li className="nav-item">
-            <Link to="/All/Kids"><div className="nav-link">Kids</div></Link>
+            <Link to="/All/Kids">
+              <div className="nav-link">Kids</div>
+            </Link>
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">

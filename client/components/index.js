@@ -3,10 +3,10 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-export {default as Navbar} from './navbar'
-export {default as Footer} from './footer'
-export {default as UserHome} from './user-home'
+export {default as Navbar} from './Navbar'
+export {default as Footer} from './Footer'
+export {default as UserHome} from './UserHome'
 export {default as AllGlasses} from './AllGlasses'
-export {default as SingleItemView} from './SingleItemView'
+export {default as SingleItemContainer} from './SingleItemContainer'
 export {default as GlassesForm} from './GlassesForm'
-export {Login, Signup} from './auth-form'
+export {Login, Signup} from './AuthForm'
