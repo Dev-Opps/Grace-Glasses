@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default props => {
   const { id, title, imageUrl, description, price, upc } = props.singleGlasses;
   const isAdmin = props.isAdmin;
-
+console.log("console logging", props)
   return (
+    
     <div className="row justify-content-center">
       <div className="col-5">
         <div
@@ -72,12 +74,19 @@ export default props => {
             </a>{' '}
             {isAdmin ? (
               <div>
-                <a href="#" className="btn btn-danger adminBtn">
+                <button onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">
                   DELETE
-                </a>
-                <a href="#" className="btn btn-warning adminBtn">
-                  EDIT
-                </a>
+                </button>
+                <Link
+                  to={{
+                    pathname: '/glasses/form',
+                    state: props.singleGlasses
+                  }}
+                >
+                  <button href="#" className="btn btn-warning adminBtn">
+                    EDIT
+                  </button>
+                </Link>
               </div>
             ) : null}
           </div>

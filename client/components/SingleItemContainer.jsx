@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { singleGlassesThunk } from '../store';
+import { singleGlassesThunk, deleteGlassesThunk } from '../store';
 import {SingleItemView} from './';
 
 class SingleItemContainer extends Component {
@@ -17,6 +17,7 @@ class SingleItemContainer extends Component {
       <SingleItemView
         singleGlasses={this.props.singleGlasses}
         isAdmin={this.props.isAdmin}
+        deleteGlasses={this.props.deleteGlasses}
       />
     );
   }
@@ -32,10 +33,15 @@ const mapDispatch = (dispatch, ownProps) => {
   // this is a state which CONTAINER component receive from AllGlasses component
   // through the Link props.
   const glassesId = ownProps.location.state;
+  console.log(glassesId);
   return {
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
+    },
+    deleteGlasses: () => {
+      dispatch(deleteGlassesThunk(glassesId))
     }
+    
   };
 };
 
