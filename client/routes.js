@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SingleItemView, GlassesForm } from './components'
+import {Login, Signup, UserHome, SingleItemContainer, GlassesForm } from './components'
 import {me, AllGlassesContainer, allGlassesThunk} from './store'
 
 /**
@@ -22,7 +22,7 @@ class Routes extends Component {
         <Route exact path="/glasses/form" component={GlassesForm} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/glasses" component={SingleItemView} />
+        <Route path="/glasses" component={SingleItemContainer} />
         <Route path="/all" component={AllGlassesContainer} />
 
         {
