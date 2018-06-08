@@ -8,10 +8,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <nav />
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <Link to="/all">
-      <a className="navbar-brand" href="#">
+    <Link className="navbar-brand" to="/all">
         LOGO
-      </a>
       </Link>
       <button
         className="navbar-toggler"
@@ -61,10 +59,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           >
             Search
           </button>
+          <Link to="/cart">
           <button type="button" className="btn btn-info">
             Cart <span className="badge badge-light">9</span>
             <span className="sr-only">unread messages</span>
           </button>
+          </Link>
           {isLoggedIn ? (
             <div>
               {/* The navbar will show these links after you log in */}
