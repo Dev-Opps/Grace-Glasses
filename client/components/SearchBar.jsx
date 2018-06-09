@@ -13,7 +13,7 @@ class SearchBar extends Component {
     let inputLen = this.state.userInput.length;
     this.setState({userInput: ev.target.value});
 
-    if (inputLen === 0) {
+    if (inputLen === 1) {
       this.props.loadAllGlasses();
     }
     else {
