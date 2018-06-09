@@ -8,6 +8,8 @@ export { default as UserHome } from './UserHome';
 export { Login, Signup } from './AuthForm';
 
 export { default as Navbar } from './Navbar';
+export { default as SearchBar } from './SearchBar';
+export { default as SearchBarContainer } from './SearchBarContainer';
 export { default as Footer } from './Footer';
 
 export { default as AllGlassesContainer } from './AllGlassesContainer';
