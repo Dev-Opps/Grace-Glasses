@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {getItemsFromCartThunk} from '../store'
 
 function CartItemsList(props) {
     
@@ -48,7 +49,7 @@ function CartItemsList(props) {
 
 function CartView(props) {
   const { user } = props;
-  console.log('cart', props);
+  // console.log('Items in the cart: CART VIEW', props);
   return (
     <div className="jumbotron">
       <h1 className="display-4">
@@ -74,7 +75,7 @@ function CartView(props) {
         */}
 
       { props.itemsInCart && props.itemsInCart.map(item => {
-        <CartItemsList key={item.id} props={item} />;
+        <CartItemsList key={item.id} item={{...item}} />;
       })}
 
       <p />
@@ -92,15 +93,17 @@ class CartViewLoader extends Component {
     super();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.loadCart()
+    console.log('props in the cart after comp is mounted', this.props);
+  }
 
   render() {
-    return <CartView props={this.props} />;
+    return <CartView props={{...this.props}} />;
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state, 'state in the cart');
   return {
     user: state.user,
     itemsInCart: state.cart
@@ -108,7 +111,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    loadCart() {
+      dispatch(getItemsFromCartThunk())
+    }
+  };
 };
 
 export default connect(
