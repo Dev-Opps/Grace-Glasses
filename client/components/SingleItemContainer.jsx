@@ -6,6 +6,7 @@ import {SingleItemView} from './';
 class SingleItemContainer extends Component {
   constructor() {
     super();
+    this.state = {}
   }
 
   componentDidMount() {
@@ -33,7 +34,7 @@ const mapDispatch = (dispatch, ownProps) => {
   // this is a state which CONTAINER component receive from AllGlasses component
   // through the Link props.
   const glassesId = ownProps.location.state;
-  console.log(glassesId);
+  // console.log(glassesId);
   return {
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
@@ -41,7 +42,6 @@ const mapDispatch = (dispatch, ownProps) => {
     deleteGlasses: () => {
       dispatch(deleteGlassesThunk(glassesId))
     }
-    
   };
 };
 

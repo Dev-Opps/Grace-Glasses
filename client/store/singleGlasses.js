@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Z_DEFAULT_COMPRESSION } from 'zlib';
+// import { Z_DEFAULT_COMPRESSION } from 'zlib';
 import history from '../history'
 
 // ACTION TYPES
