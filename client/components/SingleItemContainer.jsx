@@ -38,7 +38,9 @@ const mapDispatch = (dispatch, ownProps) => {
   // through the Link props.
   const path = ownProps.location.pathname
   // will be broken for 2 digit num!!!! just a temp fix
-  const glassesId = path[path.length - 1];
+  const glassesId = path.split('/')[2];
+  console.log('glassesid',glassesId);
+  console.log('ownpropsloc', ownProps.location)
 
   return {
 
