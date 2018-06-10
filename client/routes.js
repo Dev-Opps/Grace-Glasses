@@ -32,7 +32,7 @@ class Routes extends Component {
               <Route path="/home" component={UserHome} />
             </Switch>
         }
-        {/* Displays our Login component as a fallback */}
+        {/* Displays our Homepage component as a fallback */}
         <Route component={Homepage} />
       </Switch>
     )
