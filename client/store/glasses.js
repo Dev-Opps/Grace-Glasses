@@ -41,6 +41,16 @@ export const grabSearchedGlassesThunk = (input) => {
   }
 }
 
+export const createUpdateGlassesThunk = (editedGlasses) => {
+    return function(dispatch) {
+      axios
+      .post('/api/glasses', editedGlasses)
+      .then(res => res.data)
+      .then(glasses => console.log(glasses))
+      .catch(err => console.log(err));
+    }
+}
+
 /**
  * REDUCER
  */

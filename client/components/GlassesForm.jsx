@@ -1,90 +1,166 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { submitGlassesThunk } from '../store';
 import axios from 'axios';
 
 export default class GlassesForm extends Component {
-
   constructor() {
     super();
     this.state = {
-      title: "",
-      description: "",
+      id: '',
+      title: '',
+      description: '',
       price: 0,
       quantity: 0,
-      imageUrl: "",
-      upc: "",
-      shape: "",
-      category: "Kids"
-    }
+      imageUrl: '',
+      upc: '',
+      shape: '',
+      category: 'Kids'
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addGlasses = this.addGlasses.bind(this);
   }
 
+  static getDerivedStateFromProps(props, state) {
+    // console.log("props from getDrived", props)
+  // console.log("state from derived", state)
+    const stateFromLink = props.location.state;
+    if (stateFromLink) { 
+     const newState = Object.assign({}, stateFromLink);
+    //  delete newState.id
+     return newState;
+  }
+    }
+  
   handleChange(ev) {
-    console.log("before", this.state);
-    this.setState({[ev.target.name]: ev.target.value});
-    console.log("after", this.state);
+    this.setState({ [ev.target.name]: ev.target.value });
   }
 
-  addGlasses(glasses) {
-    axios
-    .post("/api/glasses", glasses)
-    .then(res => res.data)
-    .then(glasses => console.log("glasses"))
-    .catch(err => console.log(err));
+   async addGlasses(glasses) {
+      const newGlasses = Object.assign({}, glasses)
+      delete newGlasses.id
+  //FROM can add and edit but doesnt edit update the store's selected glasses so when it rerenders the new data doesn't show up
+  //until a refresh
+    const operation = glasses.id.length >= 1 ? axios.put(`/api/glasses/${glasses.id}`, glasses) : axios.post('/api/glasses', newGlasses)
+     await operation
+      .then(res => res.data)
+      .then(glasses => {
+        console.log('glasses')
+        this.props.history.push(`/glasses/${glasses.id}`)
+    })
+      .catch(err => console.log(err));
     }
+  
 
-  handleSubmit() {
+  handleSubmit(evt) {
+    evt.preventDefault();
     this.addGlasses(this.state);
   }
 
   render() {
-    console.log("from render", this.state)
+    // console.log('from render', this.props.location.state.id);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label for="exampleFormControlInput1">Title</label>
-            <input type="text" name="title" value={this.state.title} className="form-control" id="exampleFormControlInput1" required onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">Title</label>
+            <input
+              type="text"
+              name="title"
+              value={this.state.title}
+              className="form-control"
+              id="exampleFormControlInput1"
+              required
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlInput1">Price</label>
-            <input type="text" name="price" value={this.state.price} className="form-control" id="exampleFormControlInput1" required onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">Price</label>
+            <input
+              type="text"
+              name="price"
+              value={this.state.price}
+              className="form-control"
+              id="exampleFormControlInput1"
+              required
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlInput1">Quantity</label>
-            <input type="text" name="quantity" value={this.state.quantity} className="form-control" id="exampleFormControlInput1" onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">Quantity</label>
+            <input
+              type="text"
+              name="quantity"
+              value={this.state.quantity}
+              className="form-control"
+              id="exampleFormControlInput1"
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlInput1">URL</label>
-            <input type="text" name="imageUrl" value={this.state.imageUrl} className="form-control" id="exampleFormControlInput1" onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">URL</label>
+            <input
+              type="text"
+              name="imageUrl"
+              value={this.state.imageUrl}
+              className="form-control"
+              id="exampleFormControlInput1"
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlInput1">UPC</label>
-            <input type="text" name="upc" value={this.state.upc} className="form-control" id="exampleFormControlInput1" onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">UPC</label>
+            <input
+              type="text"
+              name="upc"
+              value={this.state.upc}
+              className="form-control"
+              id="exampleFormControlInput1"
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlInput1">Shape</label>
-            <input type="text" name="shape" value={this.state.shape} className="form-control" id="exampleFormControlInput1" onChange={this.handleChange}/>
+            <label htmlFor="exampleFormControlInput1">Shape</label>
+            <input
+              type="text"
+              name="shape"
+              value={this.state.shape}
+              className="form-control"
+              id="exampleFormControlInput1"
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
-            <label for="exampleFormControlSelect1">Category</label>
-            <select name="category" className="form-control" id="exampleFormControlSelect1" onChange={this.handleChange}>
+            <label htmlFor="exampleFormControlSelect1">Category</label>
+            <select
+              name="category"
+              className="form-control"
+              id="exampleFormControlSelect1"
+              onChange={this.handleChange}
+            >
               <option value="Men">Men</option>
               <option value="Women">Women</option>
-              <option selected value="Kids">Kids</option>
+              <option selected value="Kids">
+                Kids
+              </option>
             </select>
           </div>
           <div className="form-group">
-            <label for="exampleFormControlTextarea1">Description</label>
-            <textarea name="description" value={this.state.description} className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={this.handleChange}></textarea>
+            <label htmlFor="exampleFormControlTextarea1">Description</label>
+            <textarea
+              name="description"
+              value={this.state.description}
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              onChange={this.handleChange}
+            />
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </form>
       </div>
-    )
+    );
   }
-
-};
+}
