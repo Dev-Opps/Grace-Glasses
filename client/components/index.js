@@ -19,4 +19,5 @@ export { default as SingleItemView } from './SingleItemView';
 export { default as GlassesForm } from './GlassesForm';
 export { GlassesCardView, SelectCategoryMenu } from './AllGlassesViews';
 
+export { default as Cart } from './Cart';
 export { default as Homepage} from './Homepage'

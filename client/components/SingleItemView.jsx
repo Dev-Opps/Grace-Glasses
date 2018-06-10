@@ -67,9 +67,19 @@ const SingleItemView = props => {
             <h5 className="card-title">{title}</h5>
             <h5 className="card-title">{`$ ${price}`}</h5>
             <p className="card-text">{description}</p>
-            <a href="#" className="btn btn-primary">
+
+            {/* When User clicks would be nice to add toolpit 'Item is added to your cart' */}
+            
+            <a href="#" className="btn btn-primary"
+            onClick={() => { 
+              console.log('HANDLER')
+              props.addItemToCart(props.singleGlasses)
+            }}
+            >
               ADD TO CART
-            </a>{' '}
+            </a>
+            
+            {' '}
             {isAdmin ? (
               <div>
                 <button type="button" onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">

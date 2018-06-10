@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  /* padding-bottom: -100px; */
 }
 
 a {
@@ -37,7 +38,6 @@ button {
 
 .footer-grouping a {
   justify-content: center;
-  margin: 5px
 }
 
 .navbar {
