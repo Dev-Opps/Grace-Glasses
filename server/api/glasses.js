@@ -8,7 +8,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log('hello world!!!');
   Glasses.create(req.body)
     .then(glasses => {
       console.log(glasses);
@@ -17,8 +16,11 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/cartInfo', (req, res, next) => {
-  //we should receive an array of JSON {id : 1}, etc
+router.put('/cart-info', (req, res, next) => {
+  Glasses.updateCartInfo(req.body)
+  .then(items => res.json(items))
+  .catch(next)
+  //we should receive an array of ids, etc
   // call class method to find all glasses that match to ids
   // in given array and return array back
 });

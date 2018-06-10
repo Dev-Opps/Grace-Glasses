@@ -47,14 +47,15 @@ export const getItemsFromCartThunk = () => {
     let cartFromLS = getCartFromLocalStorage()
     // we send an array of ID's to update info
     let itemsIDs = cartFromLS.map(item => {
-      return { id : item.id }
+      return item.id
     })
 
-    axios.put('/api/glasses/cartInfo', itemsIDs)
+    axios.put('/api/glasses/cart-info', itemsIDs)
+    // we send an array of ids
       .then(res => res.data)
       .then(itemsInfoFromDB => {
         // we assume an array of glasses objects without QTY
-        let updatedCartInfo = cartitemsInfoFromDB.map((item, idx) => {
+        let updatedCartInfo = itemsInfoFromDB.map((item, idx) => {
           return Object.assign(item, cartFromLS[idx])
         })
         // now we ready to set it to our store
