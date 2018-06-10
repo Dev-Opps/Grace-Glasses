@@ -36,11 +36,11 @@ export function GlassesCardView({ glasses }) {
         </div>
       </div>
     );
-  }
+}
 
 export function SelectCategoryMenu({handleSelect, isAdmin}) {
       const addGlassesBtn = isAdmin ? (
-          <button className="btn btn-primary"> + Add Item + </button>
+          <button type="button" className="btn btn-primary"> + Add Item + </button>
         ) : null;
       return (
           <div className="row add-row">

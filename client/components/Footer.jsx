@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { SocialIcon } from "react-social-icons";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { SocialIcon } from 'react-social-icons';
 
-const Footer = props => {
+const Footer = () => {
   return (
     <div className="footer">
       <p>Call 888-634-8893</p>

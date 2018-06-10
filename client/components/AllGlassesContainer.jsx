@@ -59,7 +59,7 @@ class AllGlasses extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps);
+  // console.log(ownProps);
   return {
     // what if we do trade off
     // we can implement filtering a page => ont the frontend

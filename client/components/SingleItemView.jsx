@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default props => {
+const SingleItemView = props => {
   const { id, title, imageUrl, description, price, upc } = props.singleGlasses;
   const isAdmin = props.isAdmin;
-console.log("console logging", props)
   return (
-    
     <div className="row justify-content-center">
       <div className="col-5">
         <div
@@ -74,7 +72,7 @@ console.log("console logging", props)
             </a>{' '}
             {isAdmin ? (
               <div>
-                <button onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">
+                <button type="button" onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">
                   DELETE
                 </button>
                 <Link
@@ -83,7 +81,7 @@ console.log("console logging", props)
                     state: props.singleGlasses
                   }}
                 >
-                  <button href="#" className="btn btn-warning adminBtn">
+                  <button type="button" href="#" className="btn btn-warning adminBtn">
                     EDIT
                   </button>
                 </Link>
@@ -95,3 +93,5 @@ console.log("console logging", props)
     </div>
   );
 };
+
+export default SingleItemView;
