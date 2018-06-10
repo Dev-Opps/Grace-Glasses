@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SearchBarContainer } from './';
 
 export function GlassesCardView({ glasses }) {
     return (
@@ -14,13 +15,13 @@ export function GlassesCardView({ glasses }) {
           <div className="card-body text-center">
             <h5 className="card-title">{glasses.title}</h5>
             <h5 className="card-description">{glasses.description}</h5>
-  
+
             {/* it requires double brackets, because it's the Link
           to an object: https://reacttraining.com/react-router/web/api/Link
-          However we need to configure it differently later, 
+          However we need to configure it differently later,
           because we'll not recieve any state if we paste the link to URL bar directly.
           */}
-  
+
             <Link
               to={{
                 pathname: `/glasses/${glasses.id}`,
@@ -35,11 +36,11 @@ export function GlassesCardView({ glasses }) {
         </div>
       </div>
     );
-  }
-  
+}
+
 export function SelectCategoryMenu({handleSelect, isAdmin}) {
       const addGlassesBtn = isAdmin ? (
-          <button className="btn btn-primary"> + Add Item + </button>
+          <button type="button" className="btn btn-primary"> + Add Item + </button>
         ) : null;
       return (
           <div className="row add-row">
@@ -64,13 +65,9 @@ export function SelectCategoryMenu({handleSelect, isAdmin}) {
                   </option>
                 </select>
               </div>
+              <SearchBarContainer />
             </form>
             <Link to="/glasses/form">{addGlassesBtn}</Link>
           </div>
       )
   }
-
-
-
-
-

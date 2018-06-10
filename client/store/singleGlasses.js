@@ -1,8 +1,10 @@
 import axios from 'axios';
-// import history from '../history'
+// import { Z_DEFAULT_COMPRESSION } from 'zlib';
+import history from '../history'
 
 // ACTION TYPES
 const GET_SINGLE_GLASSES = 'GET_SINGLE_GLASSES';
+const DELETE_GLASSES = 'DELETE_GLASSES'
 
 // ACTION CREATORS
 const getSingleGlasses = singleGlasses => {
@@ -12,6 +14,12 @@ const getSingleGlasses = singleGlasses => {
   };
 };
 
+const deleteGlasses = glassesToDelete => {
+  return {
+    type: DELETE_GLASSES,
+    glassesToDelete
+  }
+}
 export const singleGlassesThunk = (glassesId, history) => {
   return dispatch => {
     axios
@@ -27,10 +35,25 @@ export const singleGlassesThunk = (glassesId, history) => {
   };
 };
 
+export const deleteGlassesThunk = (glassesId) => {
+  return dispatch => {
+    axios
+      .delete(`/api/glasses/${glassesId}`)
+      .then(res => res.data)
+      .then(deletedGlasses => {
+        dispatch(deleteGlasses(deletedGlasses));
+      })
+      history.push(`/all`)
+      .catch(err => console.log(err));
+  };
+};
+
 export default (singleGlasses = {}, action) => {
   switch (action.type) {
     case GET_SINGLE_GLASSES:
       return action.singleGlasses;
+    case DELETE_GLASSES:
+      return action.glassesToDelete;
     default:
       return singleGlasses;
   }

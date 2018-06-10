@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default props => {
+const SingleItemView = props => {
   const { id, title, imageUrl, description, price, upc } = props.singleGlasses;
   const isAdmin = props.isAdmin;
   return (
@@ -81,12 +82,19 @@ export default props => {
             {' '}
             {isAdmin ? (
               <div>
-                <a href="#" className="btn btn-danger adminBtn">
+                <button type="button" onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">
                   DELETE
-                </a>
-                <a href="#" className="btn btn-warning adminBtn">
-                  EDIT
-                </a>
+                </button>
+                <Link
+                  to={{
+                    pathname: '/glasses/form',
+                    state: props.singleGlasses
+                  }}
+                >
+                  <button type="button" href="#" className="btn btn-warning adminBtn">
+                    EDIT
+                  </button>
+                </Link>
               </div>
             ) : null}
           </div>
@@ -95,3 +103,5 @@ export default props => {
     </div>
   );
 };
+
+export default SingleItemView;

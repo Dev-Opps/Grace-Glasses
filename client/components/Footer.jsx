@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 
-const Footer = props => {
+const Footer = () => {
   return (
     <nav className="navbar navbar-toggler fixed-bottom navbar-light bg-light">
       <a className="navbar-brand" href="#">

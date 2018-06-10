@@ -13,16 +13,14 @@ const Glasses = db.define('glasses', {
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
-      min: 0,
-      isNumeric: true
+      min: 0
     }
   },
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0,
-      isNumeric: true
+      min: 0
     }
   },
   imageUrl: {
@@ -35,7 +33,8 @@ const Glasses = db.define('glasses', {
   },
   upc: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   shape: {
     type: Sequelize.STRING
@@ -58,5 +57,11 @@ Glasses.updateCartInfo = function(arrayOfItemIDs) {
     })
     .catch(err => console.error(err));
 };
+
+Glasses.addHook('afterSave', glasses => {
+  let unformattedPrice = glasses.getDataValue('price');
+  let formattedPrice = Math.round(unformattedPrice * 100) / 100;
+  glasses.price = formattedPrice;
+})
 
 module.exports = Glasses;
