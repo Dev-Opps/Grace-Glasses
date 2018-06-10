@@ -1,4 +1,4 @@
-export function getCartFromLocalStorage() {
+export const getCartFromLocalStorage = () => {
   if (storageAvailable('localStorage')) {
     return window['localStorage'].cart
       ? JSON.parse(window['localStorage'].getItem('cart'))
@@ -8,7 +8,7 @@ export function getCartFromLocalStorage() {
   }
 }
 
-export function storageAvailable(type) {
+export const storageAvailable = type => {
   try {
     var storage = window[type],
       x = '__storage_test__';
@@ -33,7 +33,7 @@ export function storageAvailable(type) {
   }
 }
 
-export function addOrIncreaseQTY(itemsInCart, newItem) {
+export const  addOrIncreaseQTY = (itemsInCart, newItem) => {
   var noMatch = true;
   itemsInCart = itemsInCart.map(item => {
     if (item.id == newItem.id) {
@@ -49,9 +49,18 @@ export function addOrIncreaseQTY(itemsInCart, newItem) {
   return itemsInCart;
 }
 
-export function saveItemToLS(item) {
+export const saveItemToLS = item =>  {
   //cart is an array of objects {id : 1, quantity: 1}
   let itemForLS = { id: item.id, quantity: item.quantity };
   let updatedCartObj = addOrIncreaseQTY(getCartFromLocalStorage(), item);
-  window['localStorage'].setItem('cart', JSON.stringify(updatedCartObj));
+  setToLocalStorage(updatedCartObj);
+}
+
+export const removeItemFromLS = itemID => {
+  let updatedCart = getCartFromLocalStorage().filter(item => item.id !== itemID)
+  setToLocalStorage(updatedCart)
+}
+
+const setToLocalStorage = cart => {
+  window['localStorage'].setItem('cart', JSON.stringify(cart));
 }
