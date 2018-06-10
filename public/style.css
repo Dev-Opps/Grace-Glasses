@@ -25,6 +25,12 @@ button {
   margin-left: 1em;
 }
 
+nav#footer-main {
+  position: sticky;
+  margin-top: 25vh
+}
+
+
 .footer {
   position: absolute;
   margin-top: 25vh;
