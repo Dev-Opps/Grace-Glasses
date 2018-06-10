@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash'
 
 // TYPE
 
@@ -24,6 +25,7 @@ const getItemsFromCart = itemsInCart => {
 export const addItemToCartThunk = item => {
   return dispatch => {
     dispatch(addItemToCart(item));
+    saveItemToLS(item)
   };
 };
 
@@ -68,11 +70,12 @@ export const getItemsFromCartThunk = () => {
 
 // figure out how to reduce same items, not to add duplicates!
 export default (itemsInCart = [], action) => {
+  var cartDeepCopy = _.cloneDeep(itemsInCart)
   switch (action.type) {
     case GET_ITEMS_FROM_CART:
       return action.itemsInCart;
     case ADD_ITEM_TO_CART:
-      return [...itemsInCart, action.oneItemInCart];
+      return addOrIncreaseQTY(cartDeepCopy, action.oneItemInCart)
     default:
       return itemsInCart;
   }
@@ -89,6 +92,16 @@ function getCartFromLocalStorage() {
     console.log('local storage', 'Too bad, no localStorage for us :(')
   } 
 }
+
+
+// function getCartFromLocalStorage() {
+//   if (storageAvailable('localStorage')) {
+//     return window['localStorage'].cart ?
+//     JSON.parse(window['localStorage'].getItem('cart')) : []
+//   } else {
+//     console.log('local storage', 'Too bad, no localStorage for us :(')
+//   } 
+// }
 
 function storageAvailable(type) {
   try {
@@ -113,3 +126,30 @@ function storageAvailable(type) {
           storage.length !== 0;
   }
 }
+
+function addOrIncreaseQTY(itemsInCart, newItem) {
+  var noMatch = true;
+  itemsInCart = itemsInCart.map(item => {
+    if (item.id == newItem.id) {
+      item.quantity++
+      noMatch = false;
+      return item
+    }
+    return item
+  })
+  if (noMatch) {
+    itemsInCart.push(newItem)
+  }
+  return itemsInCart
+}
+
+function saveItemToLS(item) {
+  //cart is an array of objects {id : 1, quantity: 1}
+  let itemForLS = {id : item.id, quantity : item.quantity}
+  let updatedCartObj = addOrIncreaseQTY(getCartFromLocalStorage(), item)
+  window['localStorage'].setItem('cart', JSON.stringify(updatedCartObj))
+} 
+
+      
+      
+ 
