@@ -39,8 +39,6 @@ const mapDispatch = (dispatch, ownProps) => {
   const path = ownProps.location.pathname
   // will be broken for 2 digit num!!!! just a temp fix
   const glassesId = path.split('/')[2];
-  console.log('glassesid',glassesId);
-  console.log('ownpropsloc', ownProps.location)
 
   return {
 
@@ -48,7 +46,8 @@ const mapDispatch = (dispatch, ownProps) => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
     },
     addItemToCart: (item) => {
-      console.log('STATEFULL')
+      console.log('STATEFULL', item)
+      item.quantity = 1;
       dispatch(addItemToCartThunk(item))
     },
     deleteGlasses: () => {
