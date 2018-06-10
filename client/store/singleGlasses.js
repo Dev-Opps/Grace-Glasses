@@ -1,7 +1,6 @@
 import axios from 'axios';
 // import { Z_DEFAULT_COMPRESSION } from 'zlib';
 import history from '../history';
-import  allGlassesThunk  from '../';
 import push from 'react-router-dom';
 
 // ACTION TYPES
@@ -45,7 +44,6 @@ export const deleteGlassesThunk = glassesId => {
       .then(deletedGlasses => {
         dispatch(deleteGlasses(deletedGlasses));
       })
-      // allGlassesThunk();
     .then(history.push(`/`).catch(err => console.log(err)));
   };
 };
