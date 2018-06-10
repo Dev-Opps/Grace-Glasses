@@ -1,10 +1,11 @@
 import axios from 'axios';
 // import { Z_DEFAULT_COMPRESSION } from 'zlib';
-import history from '../history'
+import history from '../history';
+import push from 'react-router-dom';
 
 // ACTION TYPES
 const GET_SINGLE_GLASSES = 'GET_SINGLE_GLASSES';
-const DELETE_GLASSES = 'DELETE_GLASSES'
+const DELETE_GLASSES = 'DELETE_GLASSES';
 
 // ACTION CREATORS
 const getSingleGlasses = singleGlasses => {
@@ -18,8 +19,8 @@ const deleteGlasses = glassesToDelete => {
   return {
     type: DELETE_GLASSES,
     glassesToDelete
-  }
-}
+  };
+};
 export const singleGlassesThunk = (glassesId, history) => {
   return dispatch => {
     axios
@@ -35,7 +36,7 @@ export const singleGlassesThunk = (glassesId, history) => {
   };
 };
 
-export const deleteGlassesThunk = (glassesId) => {
+export const deleteGlassesThunk = glassesId => {
   return dispatch => {
     axios
       .delete(`/api/glasses/${glassesId}`)
@@ -43,8 +44,7 @@ export const deleteGlassesThunk = (glassesId) => {
       .then(deletedGlasses => {
         dispatch(deleteGlasses(deletedGlasses));
       })
-      history.push(`/all`)
-      .catch(err => console.log(err));
+    .then(history.push(`/`).catch(err => console.log(err)));
   };
 };
 

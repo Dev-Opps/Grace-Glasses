@@ -41,7 +41,7 @@ export default class GlassesForm extends Component {
       delete newGlasses.id
   //FROM can add and edit but doesnt edit update the store's selected glasses so when it rerenders the new data doesn't show up
   //until a refresh
-    const operation = glasses.id.length >= 1 ? axios.put(`/api/glasses/${glasses.id}`, glasses) : axios.post('/api/glasses', newGlasses)
+    const operation = glasses.id === '' ? axios.post('/api/glasses', newGlasses) : axios.put(`/api/glasses/${glasses.id}`, glasses)
      await operation
       .then(res => res.data)
       .then(glasses => {
