@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_GLASSES = 'GET_GLASSES'
 const GRAB_SEARCHED_GLASSES = 'GRAB_SEARCHED_GLASSES'
+const GET_PAGINATED_GLASSES = 'GET_PAGINATED_GLASSES'
 // const CREATE_UPDATE_GLASSES = 'CREATE_UPDATE_GLASSES'
 /**
  * INITIAL STATE
@@ -16,6 +17,7 @@ const GRAB_SEARCHED_GLASSES = 'GRAB_SEARCHED_GLASSES'
  */
 const getGlasses = glasses => ({type: GET_GLASSES, payload: glasses })
 const grabSearchedGlasses = glasses => ({type: GRAB_SEARCHED_GLASSES, payload: glasses })
+const getPaginatedGlasses = glasses => ({type: GET_PAGINATED_GLASSES, payload: glasses})
 // const createUpdateGlasses = editedGlasses => ({type: CREATE_UPDATE_GLASSES, payload: editedGlasses})
 /**
  * THUNK CREATORS
@@ -43,6 +45,16 @@ export const grabSearchedGlassesThunk = (input) => {
   }
 }
 
+export const getPaginatedGlassesThunk = (pageNum) => {
+  return function(dispatch) {
+    axios
+    .get(`/api/glasses/page/${pageNum}`)
+    .then(res => res.data)
+    .then(glasses => dispatch(getPaginatedGlasses(glasses)))
+    .catch(err => console.log(err))
+  }
+}
+
 // export const createUpdateGlassesThunk = (editedGlasses) => {
 //   return function(dispatch) {
 //     axios
@@ -61,6 +73,8 @@ export default function (state = [], action) {
     case GET_GLASSES:
       return action.payload
     case GRAB_SEARCHED_GLASSES:
+      return action.payload
+    case GET_PAGINATED_GLASSES:
       return action.payload
     default:
       return state

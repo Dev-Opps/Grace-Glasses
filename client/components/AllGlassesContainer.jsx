@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { allGlassesThunk } from '../store';
+import { allGlassesThunk, getPaginatedGlassesThunk } from '../store';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { GlassesCardView, SelectCategoryMenu } from './';
@@ -10,10 +10,12 @@ class AllGlasses extends Component {
     this.state = {
       category: ''
     };
+    this.pageNum = 0;
     this.handleSelect = this.handleSelect.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
+    console.log("derived", props.location.pathname);
     let targetCategory = props.location.pathname.slice(5);
     if (state.category !== targetCategory) {
       return {
@@ -23,7 +25,7 @@ class AllGlasses extends Component {
   }
 
   componentDidMount() {
-    this.props.loadAllGlasses();
+    this.props.getPaginatedGlasses(2);
   }
 
   handleSelect(ev) {
@@ -75,7 +77,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadAllGlasses: () => dispatch(allGlassesThunk())
+    loadAllGlasses: () => dispatch(allGlassesThunk()),
+    getPaginatedGlasses: (pageNum) => dispatch(getPaginatedGlassesThunk(pageNum))
   };
 };
 

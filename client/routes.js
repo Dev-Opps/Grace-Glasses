@@ -24,6 +24,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/glasses" component={SingleItemContainer} />
         <Route path="/all" component={AllGlassesContainer} />
+        <Route path="/all/page/:num" component={AllGlassesContainer} />
         <Route path="/cart" component={Cart} />
         <Route path="/" component={Homepage} />
         {
