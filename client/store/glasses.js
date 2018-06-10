@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_GLASSES = 'GET_GLASSES'
 const GRAB_SEARCHED_GLASSES = 'GRAB_SEARCHED_GLASSES'
+// const CREATE_UPDATE_GLASSES = 'CREATE_UPDATE_GLASSES'
 /**
  * INITIAL STATE
  */
@@ -15,6 +16,7 @@ const GRAB_SEARCHED_GLASSES = 'GRAB_SEARCHED_GLASSES'
  */
 const getGlasses = glasses => ({type: GET_GLASSES, payload: glasses })
 const grabSearchedGlasses = glasses => ({type: GRAB_SEARCHED_GLASSES, payload: glasses })
+// const createUpdateGlasses = editedGlasses => ({type: CREATE_UPDATE_GLASSES, payload: editedGlasses})
 /**
  * THUNK CREATORS
  */
@@ -41,15 +43,15 @@ export const grabSearchedGlassesThunk = (input) => {
   }
 }
 
-export const createUpdateGlassesThunk = (editedGlasses) => {
-    return function(dispatch) {
-      axios
-      .post('/api/glasses', editedGlasses)
-      .then(res => res.data)
-      .then(glasses => console.log(glasses))
-      .catch(err => console.log(err));
-    }
-}
+// export const createUpdateGlassesThunk = (editedGlasses) => {
+//   return function(dispatch) {
+//     axios
+//     .post('/api/glasses', editedGlasses)
+//     .then(res => res.data)
+//     .then(glasses => console.log(glasses))
+//     .catch(err => console.log(err));
+//   }
+// }
 
 /**
  * REDUCER
