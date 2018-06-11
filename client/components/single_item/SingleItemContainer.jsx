@@ -27,7 +27,7 @@ class SingleItemContainer extends Component {
 }
 
 const mapState = state => {
-  console.log('HERE =>',state.singleGlasses)
+  console.log('HERE =>', state.singleGlasses)
   return {
     isAdmin: state.user.isAdmin,
     singleGlasses: state.singleGlasses,
