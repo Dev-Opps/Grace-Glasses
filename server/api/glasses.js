@@ -28,9 +28,9 @@ router.param('id', (req, res, next, id) => {
       if (!glass) {
         next(new Error('Product is not found'));
       } else {
-        // we attach product if it's found to the request, 
+        // we attach product if it's found to the request,
         // so it will be available for the other routes
-        req.glasses = singleGlasses;
+        req.glasses = glass;
         next();
       }
     })
