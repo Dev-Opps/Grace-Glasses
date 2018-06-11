@@ -18,6 +18,7 @@ class SingleItemContainer extends Component {
       <SingleItemView
         singleGlasses={this.props.singleGlasses}
         isAdmin={this.props.isAdmin}
+        reviews={this.props.reviews}
         addItemToCart={this.props.addItemToCart}
         deleteGlasses={this.props.deleteGlasses}
       />
@@ -26,9 +27,11 @@ class SingleItemContainer extends Component {
 }
 
 const mapState = state => {
+  console.log('HERE =>',state.singleGlasses)
   return {
     isAdmin: state.user.isAdmin,
-    singleGlasses: state.singleGlasses
+    singleGlasses: state.singleGlasses,
+    reviews: state.singleGlasses.reviews
   };
 };
 

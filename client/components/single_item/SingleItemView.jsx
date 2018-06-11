@@ -3,7 +3,15 @@ import { Link } from 'react-router-dom';
 import { ReviewForm } from '../';
 
 const SingleItemView = props => {
-  const { id, title, imageUrl, description, price, upc, reviews } = props.singleGlasses;
+  const {
+    id,
+    title,
+    imageUrl,
+    description,
+    price,
+    upc,
+    reviews
+  } = props.singleGlasses;
   const isAdmin = props.isAdmin;
   return (
     <div className="row justify-content-center">
@@ -68,24 +76,25 @@ const SingleItemView = props => {
             <h5 className="card-title">{title}</h5>
             <h5 className="card-title">{`$ ${price}`}</h5>
             <p className="card-text">{description}</p>
-
             {/* When User clicks would be nice to add toolpit 'Item is added to your cart' */}
-
-            <a href="#" className="btn btn-primary"
-
-            onClick={() => { 
-              props.addItemToCart(props.singleGlasses)
-            }}
+            <a
+              href="#"
+              className="btn btn-primary"
+              onClick={() => {
+                props.addItemToCart(props.singleGlasses);
+              }}
             >
               ADD TO CART
             </a>
-
-            <ReviewForm />
-
-            {' '}
+            <ReviewForm />{' '}
             {isAdmin ? (
               <div>
-                <button type="button" onClick={() => props.deleteGlasses()} href="#" className="btn btn-danger adminBtn">
+                <button
+                  type="button"
+                  onClick={() => props.deleteGlasses()}
+                  href="#"
+                  className="btn btn-danger adminBtn"
+                >
                   DELETE
                 </button>
                 <Link
@@ -94,7 +103,11 @@ const SingleItemView = props => {
                     state: props.singleGlasses
                   }}
                 >
-                  <button type="button" href="#" className="btn btn-warning adminBtn">
+                  <button
+                    type="button"
+                    href="#"
+                    className="btn btn-warning adminBtn"
+                  >
                     EDIT
                   </button>
                 </Link>
@@ -103,6 +116,20 @@ const SingleItemView = props => {
           </div>
         </div>
       </div>
+
+      {reviews &&
+        reviews.map(review => (
+          <div className="card review-card col-5">
+            <h5 className="card-header">Featured</h5>
+            <div className="card-body">
+              <h5 className="card-title">Special title treatment</h5>
+              <p className="card-text">{review.body}</p>
+              <a href="#" className="btn btn-primary">
+                Go somewhere
+              </a>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };
