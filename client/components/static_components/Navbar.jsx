@@ -56,11 +56,11 @@ const Navbar = props => {
             <span className="sr-only">Items in Cart</span>
           </button>
         </Link>
-        {isAdmin ? <Link to="/glasses/form">Admin Dashboard</Link> : null}
+        {isAdmin ? <Link to="/admin/form">Admin Dashboard</Link> : null}
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Account</Link>
+            <Link to="/account">Account</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
