@@ -26,20 +26,32 @@ function usersPromises() {
   return arr
 }
 
+const adj = () => {
+  let description = ''
+  let count = 5;
+  while( count > 0) {
+    description += faker.commerce.productAdjective() + ' ' + faker.commerce.productName()
+    count--
+  }
+  return description;
+}
 
-var cats = ['Men', 'Women', 'Kids']
+const cats = ['Men', 'Women', 'Kids']
+
 function glassesPromises() {
   let arr = []
   for (let i =0; i < 30; i++) {
     arr.push(Glasses.create({
-      title: faker.commerce.productName(), 
-      description: faker.commerce.productAdjective(),
-      price : faker.random.number(),
-      quantity : faker.random.number(),
-      upc: faker.commerce.product(),
+      title: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(), 
+      description: adj(),
+      price : Math.floor(Math.random()*10000 + 50),
+      quantity : Math.floor(Math.random()*1000),
+      upc: `GL_${Math.floor(Math.random()*10000)}`,
       shape: faker.commerce.productMaterial(),
       category: cats[Math.floor(Math.random()*3)],
-    }))
+    })
+    .catch(err => console.error(err))
+  )
   }
   return arr
 }

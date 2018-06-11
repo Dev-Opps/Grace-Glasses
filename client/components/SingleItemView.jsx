@@ -72,8 +72,8 @@ const SingleItemView = props => {
             {/* When User clicks would be nice to add toolpit 'Item is added to your cart' */}
 
             <a href="#" className="btn btn-primary"
-            onClick={() => {
-              console.log('HANDLER', props.singleGlasses)
+
+            onClick={() => { 
               props.addItemToCart(props.singleGlasses)
             }}
             >

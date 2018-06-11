@@ -58,3 +58,37 @@ nav#footer-main {
     margin-top: 1em;
     margin-right: 1em;
 }
+
+.cart-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center
+}
+
+.item-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 3em
+}
+
+.lead-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-image-cart {
+  /* width: 200px; */
+  height: 200px;
+
+}
+
+.remove-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

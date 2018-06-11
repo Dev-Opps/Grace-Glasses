@@ -45,7 +45,6 @@ const mapDispatch = (dispatch, ownProps) => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
     },
     addItemToCart: (item) => {
-      console.log('STATEFULL', item)
       item.quantity = 1;
       dispatch(addItemToCartThunk(item))
     },
