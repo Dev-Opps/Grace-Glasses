@@ -31,7 +31,7 @@ const addItemToCart = oneItemInCart => {
 
 const removeItemFromCart = itemId => {
   return {
-    type: ADD_ITEM_TO_CART,
+    type: REMOVE_ITEM_FROM_CART,
     itemId
   };
 };
@@ -57,12 +57,13 @@ export const getItemsFromCartThunk = () => {
     let itemsIDs = cartFromLS.map(item => {
       return item.id;
     });
+    console.log('cart from LS', getCartFromLocalStorage())
     axios
       .put('/api/glasses/cart-info', itemsIDs)
       .then(res => res.data)
       .then(itemsInfoFromDB => {
         let updatedCartInfo = itemsInfoFromDB.map((item, idx) => {
-          return Object.assign(item, cartFromLS[idx]);
+          return Object.assign({}, item, cartFromLS[idx]);
         });
         dispatch(getItemsFromCart(updatedCartInfo));
       })
@@ -79,7 +80,6 @@ export default (itemsInCart = [], action) => {
       return addOrIncreaseQTY(cartDeepCopy, action.oneItemInCart);
     case REMOVE_ITEM_FROM_CART:
       return cartDeepCopy.filter(item => item.id != action.itemId)
-      // haven't tested this yet // doesn't work, probably mutating the sate while reducing
     default:
       return itemsInCart;
   }

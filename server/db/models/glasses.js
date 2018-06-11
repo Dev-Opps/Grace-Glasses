@@ -10,11 +10,8 @@ const Glasses = db.define('glasses', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   quantity: {
     type: Sequelize.INTEGER,
@@ -44,11 +41,15 @@ const Glasses = db.define('glasses', {
   }
 });
 
+Glasses.addHook('afterSave', glasses => {
+  let unformattedPrice = glasses.getDataValue('price');
+  let formattedPrice = Math.round(unformattedPrice * 100) / 100;
+  glasses.price = formattedPrice;
+});
+
 Glasses.updateCartInfo = function(arrayOfItemIDs) {
-  // map through array of item IDs
   return Promise.all(
     arrayOfItemIDs.map(id => {
-      // query DB for each id
       return Glasses.findById(id);
     })
   )
@@ -57,11 +58,5 @@ Glasses.updateCartInfo = function(arrayOfItemIDs) {
     })
     .catch(err => console.error(err));
 };
-
-Glasses.addHook('afterSave', glasses => {
-  let unformattedPrice = glasses.getDataValue('price');
-  let formattedPrice = Math.round(unformattedPrice * 100) / 100;
-  glasses.price = formattedPrice;
-})
 
 module.exports = Glasses;

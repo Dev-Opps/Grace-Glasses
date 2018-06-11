@@ -33,7 +33,7 @@ export const storageAvailable = type => {
   }
 }
 
-export const  addOrIncreaseQTY = (itemsInCart, newItem) => {
+export const addOrIncreaseQTY = (itemsInCart, newItem) => {
   var noMatch = true;
   itemsInCart = itemsInCart.map(item => {
     if (item.id == newItem.id) {
@@ -51,8 +51,8 @@ export const  addOrIncreaseQTY = (itemsInCart, newItem) => {
 
 export const saveItemToLS = item =>  {
   //cart is an array of objects {id : 1, quantity: 1}
-  let itemForLS = { id: item.id, quantity: item.quantity };
-  let updatedCartObj = addOrIncreaseQTY(getCartFromLocalStorage(), item);
+  let itemForLS = Object.assign({id : item.id, quantity : item.quantity})
+  let updatedCartObj = addOrIncreaseQTY(getCartFromLocalStorage(), itemForLS);
   setToLocalStorage(updatedCartObj);
 }
 
@@ -62,5 +62,6 @@ export const removeItemFromLS = itemID => {
 }
 
 const setToLocalStorage = cart => {
+  window['localStorage'].clear()
   window['localStorage'].setItem('cart', JSON.stringify(cart));
 }

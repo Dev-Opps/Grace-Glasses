@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getItemsFromCartThunk, removeItemFromCartThunk } from '../store';
 
 function CartItemsList(props) {
-  console.log(props.removeItem)
   const {
     id,
     title,
@@ -42,28 +41,41 @@ function CartItemsList(props) {
         >
           <div className="card-body item-body">
             <div>
-              <img src={imageUrl} alt="image here" className="item-image-cart" />
+              <img
+                src={imageUrl}
+                alt="image here"
+                className="item-image-cart"
+              />
             </div>
 
             <ul>
-              <li><h4>{upc}</h4></li>
+              <li>
+                <h4>{upc}</h4>
+              </li>
               <Link to={category}>
-              <li><h4>{category}</h4></li>
+                <li>
+                  <h4>{category}</h4>
+                </li>
               </Link>
-              <li><h4>{shape}</h4></li>
-              <li><h4>{description}</h4></li>
+              <li>
+                <h4>{shape}</h4>
+              </li>
+              <li>
+                <h4>{description}</h4>
+              </li>
             </ul>
 
             <div className="remove-button">
               <h3>{`Price: $ ${price}`}</h3>
-              <button 
-              className="btn btn-danger"
-              onClick={() => props.removeItem(id)}
+              <button
+                className="btn btn-danger"
+                onClick={(e) => {
+                  props.removeItem(id)}
+                }
               >
                 I don't want this anymore!
               </button>
             </div>
-
           </div>
         </div>
       </div>
@@ -73,7 +85,6 @@ function CartItemsList(props) {
 
 function CartView(props) {
   const { user, itemsInCart } = props;
-  console.log('CART VIEW',  props);
   return (
     <div className="jumbotron">
       <h1 className="display-4">
@@ -94,7 +105,13 @@ function CartView(props) {
 
       {itemsInCart && itemsInCart.length
         ? itemsInCart.map(item => {
-            return <CartItemsList key={item.id} item={item} removeItem={props.removeItem}/>;
+            return (
+              <CartItemsList
+                key={item.id}
+                item={item}
+                removeItem={props.removeItem}
+              />
+            );
           })
         : 'No items in the cart yet!'}
 
@@ -105,13 +122,13 @@ function CartView(props) {
           Let's checkout!
         </a>
         <span>
-          Your subtotal is: $ { 
-            itemsInCart.reduce((prev, curr) => {
-            return prev + curr.price
-          }, 0)
-          }
-          </span>
-
+          Your subtotal is:{' '}
+          <b>
+            ${itemsInCart.reduce((prev, curr) => {
+              return prev + curr.price;
+            }, 0)}
+          </b>
+        </span>
       </p>
     </div>
   );
@@ -126,10 +143,11 @@ class CartViewLoader extends Component {
   }
   render() {
     return (
-      <CartView 
-      itemsInCart={this.props.itemsInCart} 
-      user={this.props.user} 
-      removeItem={this.props.removeItem} />
+      <CartView
+        itemsInCart={this.props.itemsInCart}
+        user={this.props.user}
+        removeItem={this.props.removeItem}
+      />
     );
   }
 }
@@ -147,7 +165,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getItemsFromCartThunk());
     },
     removeItem(itemID) {
-      dispatch(removeItemFromCartThunk(itemID))
+      dispatch(removeItemFromCartThunk(itemID));
     }
   };
 };
