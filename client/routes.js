@@ -22,7 +22,7 @@ class Routes extends Component {
         <Route exact path="/glasses/form" component={GlassesForm} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/glasses" component={SingleItemContainer} />
+        <Route path="/glasses/:id" component={SingleItemContainer} />
         <Route path="/all" component={AllGlassesContainer} />
         <Route path="/cart" component={Cart} />
         <Route path="/" component={Homepage} />

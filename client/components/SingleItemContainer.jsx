@@ -33,14 +33,8 @@ const mapState = state => {
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  // this is a state which CONTAINER component receive from AllGlasses component
-  // through the Link props.
-  const path = ownProps.location.pathname
-  // will be broken for 2 digit num!!!! just a temp fix
-  const glassesId = path.split('/')[2];
-
+  const glassesId = ownProps.match.params.id
   return {
-
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
     },
@@ -59,10 +53,6 @@ const mapDispatch = (dispatch, ownProps) => {
     // }
   }
 };
-
-// very weird, that we don't have id from ownProps.match...
-// probably routing stuff
-// feel like will look at history file later.
 
 export default connect(
   mapState,
