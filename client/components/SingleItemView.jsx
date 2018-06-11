@@ -72,7 +72,6 @@ const SingleItemView = props => {
             
             <a href="#" className="btn btn-primary"
             onClick={() => { 
-              console.log('HANDLER', props.singleGlasses)
               props.addItemToCart(props.singleGlasses)
             }}
             >
