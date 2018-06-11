@@ -15,6 +15,7 @@ export { default as Footer } from './Footer';
 export { default as AllGlassesContainer } from './AllGlassesContainer';
 export { default as SingleItemContainer } from './SingleItemContainer';
 export { default as SingleItemView } from './SingleItemView';
+export { default as ReviewForm } from './ReviewForm';
 
 export { default as GlassesForm } from './GlassesForm';
 export { GlassesCardView, SelectCategoryMenu } from './AllGlassesViews';

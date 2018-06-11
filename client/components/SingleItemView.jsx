@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReviewForm } from './';
 
 const SingleItemView = props => {
   const { id, title, imageUrl, description, price, upc } = props.singleGlasses;
@@ -69,16 +70,20 @@ const SingleItemView = props => {
             <p className="card-text">{description}</p>
 
             {/* When User clicks would be nice to add toolpit 'Item is added to your cart' */}
-            
+
+            {console.log(props)}
+
             <a href="#" className="btn btn-primary"
-            onClick={() => { 
+            onClick={() => {
               console.log('HANDLER', props.singleGlasses)
               props.addItemToCart(props.singleGlasses)
             }}
             >
               ADD TO CART
             </a>
-            
+
+            <ReviewForm />
+
             {' '}
             {isAdmin ? (
               <div>
