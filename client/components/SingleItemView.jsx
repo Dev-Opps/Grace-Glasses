@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReviewForm } from './';
 
 const SingleItemView = props => {
-  const { id, title, imageUrl, description, price, upc } = props.singleGlasses;
+  const { id, title, imageUrl, description, price, upc, reviews } = props.singleGlasses;
   const isAdmin = props.isAdmin;
   return (
     <div className="row justify-content-center">
@@ -69,15 +70,18 @@ const SingleItemView = props => {
             <p className="card-text">{description}</p>
 
             {/* When User clicks would be nice to add toolpit 'Item is added to your cart' */}
-            
+
             <a href="#" className="btn btn-primary"
+
             onClick={() => { 
               props.addItemToCart(props.singleGlasses)
             }}
             >
               ADD TO CART
             </a>
-            
+
+            <ReviewForm />
+
             {' '}
             {isAdmin ? (
               <div>

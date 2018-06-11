@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const { Review } = require('../db/models');
 
+router.get('/', (req, res, next) => {
+  Review.findAll()
+    .then(reviews => res.json(reviews))
+    .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   Review.create(req.body)
     .then(reviews => res.json(reviews))

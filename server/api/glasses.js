@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Glasses } = require('../db/models');
+const { Glasses, Review } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   Glasses.findAll()
@@ -23,9 +23,9 @@ router.put('/cart-info', (req, res, next) => {
 
 // this will work for all routes, which contain id "param", like '/api/glasses/:id'
 router.param('id', (req, res, next, id) => {
-  Glasses.findById(id)
-    .then(singleGlasses => {
-      if (!singleGlasses) {
+  Glasses.findById(id, {include: [Review]})
+    .then(glass => {
+      if (!glass) {
         next(new Error('Product is not found'));
       } else {
         // we attach product if it's found to the request, 

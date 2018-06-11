@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { singleGlassesThunk, deleteGlassesThunk, addItemToCartThunk } from '../store';
+import { singleGlassesThunk, deleteGlassesThunk, addItemToCartThunk, submitReviewThunk } from '../store';
 import {SingleItemView} from './';
 
 class SingleItemContainer extends Component {
@@ -12,7 +12,6 @@ class SingleItemContainer extends Component {
   componentDidMount() {
     this.props.loadSingleGlasses();
   }
-
 
   render() {
     return (
@@ -52,6 +51,12 @@ const mapDispatch = (dispatch, ownProps) => {
     deleteGlasses: () => {
       dispatch(deleteGlassesThunk(glassesId))
     }
+    // submitReview: (ev) => {
+    //   const body = ev.target.body.value
+    //   const rating = ev.target.rating.value
+    //   console.log(body, rating)
+    //   dispatch(submitReviewThunk(body, rating))
+    // }
   }
 };
 
