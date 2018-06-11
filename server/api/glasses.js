@@ -1,6 +1,14 @@
 const router = require('express').Router();
 const { Glasses, Review } = require('../db/models');
 
+function secure(req, res) {
+  const isUser = req.hasOwnProperty('user')
+  const isAdmin = isUser ? req.user.dataValues.isAdmin : false;
+  const allowed = isUser && isAdmin;
+
+  if (!allowed) return res.status(403).send('FORBIDDEN')
+}
+
 router.get('/', (req, res, next) => {
   Glasses.findAll()
     .then(glasses => res.json(glasses))
@@ -8,6 +16,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  secure(req, res);
   Glasses.create(req.body)
     .then(glasses => {
       res.json(glasses);
@@ -43,11 +52,13 @@ router
     res.json(req.glasses);
   })
   .put((req, res, next) => {
+    secure(req, res);
     req.glasses.update(req.body).then(updatedGlasses => {
       res.status(201).json(updatedGlasses);
     });
   })
   .delete((req, res, next) => {
+    secure(req, res);
     req.glasses.destroy().then(() => {
       res.status(204).send();
     });
