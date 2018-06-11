@@ -12,7 +12,8 @@ const SingleItemView = props => {
     upc,
     reviews
   } = props.singleGlasses;
-  const isAdmin = props.user.isAdmin;
+  const isAdmin = props.isAdmin;
+  const isLoggedIn = props.id;
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -99,7 +100,7 @@ const SingleItemView = props => {
                 </button>
                 <Link
                   to={{
-                    pathname: '/glasses/form',
+                    pathname: '/admin/form',
                     state: props.singleGlasses
                   }}
                 >
@@ -117,19 +118,20 @@ const SingleItemView = props => {
         </div>
       </div>
 
-      {reviews &&
-        reviews.map(review => (
-          <div className="card review-card col-5">
-            <h5 className="card-header">Featured</h5>
-            <div className="card-body">
-              <h5 className="card-title">Special title treatment</h5>
-              <p className="card-text">{review.body}</p>
-              <a href="#" className="btn btn-primary">
-                Go somewhere
-              </a>
+      {reviews && id &&
+        reviews.map(review => {
+          return (
+            <div key={id} className="card review-card col-5">
+              <h5 className="card-header">Featured</h5>
+              <div className="card-body">
+                <h5 className="card-title">Special title treatment</h5>
+                <p className="card-text">{review.body}</p>
+                <a href="#" className="btn btn-primary">
+                  Go somewhere
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+        )})}
     </div>
   );
 };

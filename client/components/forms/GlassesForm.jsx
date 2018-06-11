@@ -23,13 +23,13 @@ export default class GlassesForm extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const stateFromLink = props.location.state;
-    if (stateFromLink) { 
+    if (stateFromLink) {
      const newState = Object.assign({}, stateFromLink);
     //  delete newState.id
      return newState;
   }
     }
-  
+
   handleChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
@@ -47,7 +47,6 @@ export default class GlassesForm extends Component {
     })
       .catch(err => console.log(err));
     }
-  
 
   handleSubmit(evt) {
     evt.preventDefault();
