@@ -57,7 +57,7 @@ export const saveItemToLS = item =>  {
 }
 
 export const removeItemFromLS = itemID => {
-  let updatedCart = getCartFromLocalStorage().filter(item => item.id !== itemID)
+  let updatedCart = getCartFromLocalStorage().filter(item => item.id != itemID)
   setToLocalStorage(updatedCart)
 }
 

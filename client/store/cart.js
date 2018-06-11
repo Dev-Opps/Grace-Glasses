@@ -78,8 +78,8 @@ export default (itemsInCart = [], action) => {
     case ADD_ITEM_TO_CART:
       return addOrIncreaseQTY(cartDeepCopy, action.oneItemInCart);
     case REMOVE_ITEM_FROM_CART:
-      return cartDeepCopy.filter(item => item.id !== action.itemId)
-      // haven't tested this yet
+      return cartDeepCopy.filter(item => item.id != action.itemId)
+      // haven't tested this yet // doesn't work, probably mutating the sate while reducing
     default:
       return itemsInCart;
   }
