@@ -22,8 +22,6 @@ export default class GlassesForm extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    // console.log("props from getDrived", props)
-  // console.log("state from derived", state)
     const stateFromLink = props.location.state;
     if (stateFromLink) { 
      const newState = Object.assign({}, stateFromLink);
@@ -45,7 +43,6 @@ export default class GlassesForm extends Component {
      await operation
       .then(res => res.data)
       .then(glasses => {
-        console.log('glasses')
         this.props.history.push(`/glasses/${glasses.id}`)
     })
       .catch(err => console.log(err));
@@ -58,7 +55,6 @@ export default class GlassesForm extends Component {
   }
 
   render() {
-    // console.log('from render', this.props.location.state.id);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
