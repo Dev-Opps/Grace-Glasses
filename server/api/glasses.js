@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Glasses, Review } = require('../db/models');
 
 function secure(req, res) {
+  console.log(req.session.user);
   const isUser = req.hasOwnProperty('user')
   const isAdmin = isUser ? req.user.dataValues.isAdmin : false;
   const allowed = isUser && isAdmin;

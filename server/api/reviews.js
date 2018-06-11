@@ -7,20 +7,40 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
-  Review.create(req.body)
+router.get('/:id', (req, res, next) => {
+  Review.findById(req.params.id)
     .then(reviews => res.json(reviews))
     .catch(next);
 });
 
-router.put('/:id', (req, res, next) => {
-  Review.findById(req.params.id)
-    .then(foundReview => {
-      foundReview.update(req.body);
+router.post('/', (req, res, next) => {
+  Review.create(req.body)
+    .then(review => {
+      //important
+      review.setUser(req.user)
+      res.json(review)
     })
-    .then(updatedReview => res.status(201).json(updatedReview));
+    .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  //We need to test this after we create edit review frontend;
+
+  let idOfUser = req.user.id;
+
+  Review.findById(req.params.id)
+    .then(foundReview => {
+      if (foundReview.userId === idOfUser){
+        foundReview.update(req.body)
+          .then(updatedReview => res.status(201).json(updatedReview));
+      } else {
+        res.status(403).send('Forbidden');
+      }
+    })
+    .catch(next)
+});
+
+//If put above works then use same logic below;
 router.delete('/:id', (req, res, next) => {
   Review.destroy({
     where: {
