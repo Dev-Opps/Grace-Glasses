@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { allGlassesThunk } from '../store';
+import { allGlassesThunk } from '../../store';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { GlassesCardView, SelectCategoryMenu } from './';
+import { GlassesCardView, SelectCategoryMenu } from '../';
 
 class AllGlasses extends Component {
   constructor() {

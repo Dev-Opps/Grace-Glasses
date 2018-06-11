@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { SearchBar } from './';
-import { grabSearchedGlassesThunk, allGlassesThunk } from '../store'
+import SearchBar from '../';
+import { grabSearchedGlassesThunk, allGlassesThunk } from '../../store'
 
 const mapDispatchToProps = dispatch => {
   return {

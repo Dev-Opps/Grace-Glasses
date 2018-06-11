@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { submitReviewThunk } from '../store';
+import { submitReviewThunk } from '../../store';
 import { connect } from 'react-redux';
 
 class ReviewForm extends Component {

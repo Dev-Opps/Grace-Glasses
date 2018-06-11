@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ReviewForm } from './';
+import { ReviewForm } from '../';
 
 const SingleItemView = props => {
   const { id, title, imageUrl, description, price, upc, reviews } = props.singleGlasses;

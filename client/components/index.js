@@ -5,20 +5,20 @@
  */
 
 export { default as UserHome } from './UserHome';
-export { Login, Signup } from './AuthForm';
+export { Login, Signup } from './forms/AuthForm';
 
-export { default as Navbar } from './Navbar';
-export { default as SearchBar } from './SearchBar';
-export { default as SearchBarContainer } from './SearchBarContainer';
-export { default as Footer } from './Footer';
+export { default as Navbar } from './static_components/Navbar';
+export { default as SearchBar } from './search/SearchBar';
+export { default as SearchBarContainer } from './search/SearchBarContainer';
+export { default as Footer } from './static_components/Footer';
 
-export { default as AllGlassesContainer } from './AllGlassesContainer';
-export { default as SingleItemContainer } from './SingleItemContainer';
-export { default as SingleItemView } from './SingleItemView';
-export { default as ReviewForm } from './ReviewForm';
+export { default as AllGlassesContainer } from './all_items/AllGlassesContainer';
+export { default as SingleItemContainer } from './single_item/SingleItemContainer';
+export { default as SingleItemView } from './single_item/SingleItemView';
+export { default as ReviewForm } from './forms/ReviewForm';
 
-export { default as GlassesForm } from './GlassesForm';
-export { GlassesCardView, SelectCategoryMenu } from './AllGlassesViews';
+export { default as GlassesForm } from './forms/GlassesForm';
+export { GlassesCardView, SelectCategoryMenu } from './all_items/AllGlassesViews';
 
 export { default as Cart } from './Cart';
-export { default as Homepage} from './Homepage'
+export { default as Homepage} from './static_components/Homepage'

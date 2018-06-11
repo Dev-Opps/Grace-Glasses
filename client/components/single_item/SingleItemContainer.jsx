@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { singleGlassesThunk, deleteGlassesThunk, addItemToCartThunk, submitReviewThunk } from '../store';
-import {SingleItemView} from './';
+import { singleGlassesThunk, deleteGlassesThunk, addItemToCartThunk, submitReviewThunk } from '../../store';
+import {SingleItemView} from '../';
 
 class SingleItemContainer extends Component {
   constructor(props) {
