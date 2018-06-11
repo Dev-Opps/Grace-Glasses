@@ -32,7 +32,9 @@ class AllGlasses extends Component {
   // Best way to pass in props to generate single view page when button is clicked is by passing in the props to the Link's state (but I can't get it to work).
   render() {
     const { isAdmin, allGlasses } = this.props;
-
+    // function renderGlasses(category){
+    //   //This function can be used to keep our code DRY. 
+    // }
     const unfilteredGlasses = this.props.allGlasses.map(glasses => {
       return <GlassesCardView key={glasses.id} glasses={glasses} />;
     });

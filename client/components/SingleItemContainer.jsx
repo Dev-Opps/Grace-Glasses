@@ -35,6 +35,8 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   // this is a state which CONTAINER component receive from AllGlasses component
   // through the Link props.
+
+  //this.props.match.params.id
   const path = ownProps.location.pathname
   // will be broken for 2 digit num!!!! just a temp fix
   const glassesId = path.split('/')[2];

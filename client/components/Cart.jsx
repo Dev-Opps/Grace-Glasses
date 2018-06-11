@@ -15,6 +15,8 @@ function CartItemsList(props) {
     category,
     shape
   } = props.item;
+  //IF there can be multiples you should use className.
+  //Outermost classname should be usually explicative of component.
   return (
     <div id="accordion">
       <div className="card">
@@ -47,7 +49,7 @@ function CartItemsList(props) {
                 className="item-image-cart"
               />
             </div>
-
+            {/* Make sure to put classNames on things you might want to style. card-body-list */}
             <ul>
               <li>
                 <h4>{upc}</h4>

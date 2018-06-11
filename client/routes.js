@@ -19,11 +19,12 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+         {/* CG: Corey made changes to these routes to make them more restful */}
         <Route exact path="/glasses/form" component={GlassesForm} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/glasses" component={SingleItemContainer} />
-        <Route path="/all" component={AllGlassesContainer} />
+        <Route path="/glasses/:id" component={SingleItemContainer} />
+        <Route path="/glasses" component={AllGlassesContainer} />
         <Route path="/cart" component={Cart} />
         <Route path="/" component={Homepage} />
         {
@@ -33,6 +34,7 @@ class Routes extends Component {
               <Route path="/home" component={UserHome} />
             </Switch>
         }
+        {/* CG: Consider adding admin switch as well.  */}
         {/* Displays our Homepage component as a fallback */}
         <Route component={Homepage} />
       </Switch>

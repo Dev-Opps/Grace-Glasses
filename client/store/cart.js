@@ -72,11 +72,11 @@ export const getItemsFromCartThunk = () => {
 };
 
 export default (itemsInCart = [], action) => {
-  var cartDeepCopy = _.cloneDeep(itemsInCart);
+  var cartDeepCopy = _.cloneDeep(itemsInCart); //var :O
   switch (action.type) {
     case GET_ITEMS_FROM_CART:
       return action.itemsInCart;
-    case ADD_ITEM_TO_CART:
+    case ADD_ITEM_TO_CART: //you can Object.assign the one thing you need to change.
       return addOrIncreaseQTY(cartDeepCopy, action.oneItemInCart);
     case REMOVE_ITEM_FROM_CART:
       return cartDeepCopy.filter(item => item.id != action.itemId)

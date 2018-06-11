@@ -2,6 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchBarContainer } from './';
 
+//SingleGlassCard
+
+/*
+CG: SASS notes.
+.card {
+  &-img-top {
+
+  }
+
+}
+
+*/
+
 export function GlassesCardView({ glasses }) {
     return (
       <div className="col-4">

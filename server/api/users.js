@@ -12,3 +12,11 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+/*
+
+  /api/users/:userId/cart
+  /api/users/:userId/orders MAYBE?cart=true  
+
+
+*/

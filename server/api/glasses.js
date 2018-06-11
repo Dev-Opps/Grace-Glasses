@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const { Glasses, Review } = require('../db/models');
 
+
+
+//give me all the products... 
+//CG: query params.
+//Maybe filter by category here ?category='asdl;asmf;lfm'
 router.get('/', (req, res, next) => {
   Glasses.findAll()
     .then(glasses => res.json(glasses))
@@ -15,6 +20,10 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+/*
+  productId: quantity
+  get
+*/
 router.put('/cart-info', (req, res, next) => {
   Glasses.updateCartInfo(req.body)
   .then(items => res.json(items))
