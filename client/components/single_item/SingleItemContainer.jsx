@@ -17,7 +17,7 @@ class SingleItemContainer extends Component {
     return (
       <SingleItemView
         singleGlasses={this.props.singleGlasses}
-        isAdmin={this.props.isAdmin}
+        user={this.props.user}
         reviews={this.props.reviews}
         addItemToCart={this.props.addItemToCart}
         deleteGlasses={this.props.deleteGlasses}
@@ -27,9 +27,8 @@ class SingleItemContainer extends Component {
 }
 
 const mapState = state => {
-  console.log('HERE =>',state.singleGlasses)
   return {
-    isAdmin: state.user.isAdmin,
+    user: state.user,
     singleGlasses: state.singleGlasses,
     reviews: state.singleGlasses.reviews
   };
@@ -41,9 +40,9 @@ const mapDispatch = (dispatch, ownProps) => {
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
     },
-    addItemToCart: (item) => {
+    addItemToCart: (item, user) => {
       item.quantity = 1;
-      dispatch(addItemToCartThunk(item))
+      dispatch(addItemToCartThunk(item, user))
     },
     deleteGlasses: () => {
       dispatch(deleteGlassesThunk(glassesId))

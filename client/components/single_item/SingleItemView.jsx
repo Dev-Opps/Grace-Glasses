@@ -12,7 +12,7 @@ const SingleItemView = props => {
     upc,
     reviews
   } = props.singleGlasses;
-  const isAdmin = props.isAdmin;
+  const isAdmin = props.user.isAdmin;
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -81,7 +81,7 @@ const SingleItemView = props => {
               href="#"
               className="btn btn-primary"
               onClick={() => {
-                props.addItemToCart(props.singleGlasses);
+                props.addItemToCart(props.singleGlasses, props.user);
               }}
             >
               ADD TO CART

@@ -43,10 +43,19 @@ export const removeItemFromCartThunk = itemId => {
   }
 }
 
-export const addItemToCartThunk = item => {
+export const addItemToCartThunk = (item, user) => {
+  console.log('HERE', item)
   return dispatch => {
     dispatch(addItemToCart(item));
     saveItemToLS(item);
+    if (user.id) {
+      axios.post(`/api/users/${user.id}/cart`, item)
+      .then(res => res.data)
+      .then(something => {
+        console.log(something)
+      })
+      .catch(err => console.log(err))
+    }
   };
 };
 

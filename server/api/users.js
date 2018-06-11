@@ -1,6 +1,7 @@
-const router = require('express').Router()
-const {User} = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { User, Orders, OrdersProducts } = require('../db/models');
+
+module.exports = router;
 
 router.get('/', (req, res, next) => {
   User.findAll({
@@ -10,5 +11,63 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next)
-})
+    .catch(next);
+});
+
+router.post('/:id/cart', (req, res, next) => {
+  const { id, price, upc } = req.body;
+  if (req.session.passport.user == req.params.id) {
+    Orders.find({
+      where: {
+        userId: req.params.id,
+        status: 'UNPAID'
+      }
+    })
+      .then(order => {
+        if (!order) {
+          // want to create an order and add item
+          Orders.create({
+            userId: req.session.passport.user
+          })
+            .then(createdOrder => {
+              
+              OrdersProducts.create({
+                orderId: createdOrder.id,
+                glassId: id,
+                productPrice: price,
+                upc: upc
+              })
+                // do we need to send it???
+                .then(orderProductsRow => {})
+                .catch(err => console.log(err));
+            })
+            .catch(next);
+        } else {
+          //want to update an order with an item
+          //found order with status status unpaid and userid
+          OrdersProducts.findOne({
+            where: {
+              orderId: order.id,
+              glassId: id
+            }
+          })
+          .then(productInCart => {
+            if (!productInCart) {
+              OrdersProducts.create({
+                orderId: order.id,
+                glassId: id,
+                productPrice: price,
+                upc: upc
+              })
+                .then(orderProductsRow => {})
+                .catch(next);
+            } else {
+              productInCart.increment('quantity')
+            }
+          });
+        }
+      })
+      .catch(next);
+    res.status(201).send('something');
+  }
+});

@@ -38,7 +38,6 @@ class ReviewForm extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     singleGlasses: state.singleGlasses
   }
