@@ -25,11 +25,11 @@ export const submitReviewThunk = (reviewToSubmit) => {
 };
 
 // REDUCER
-export default (singleReview = {}, action) => {
+export default (reviews = [], action) => {
   switch (action.type) {
     case SUBMIT_REVIEW:
-      return action.reviewToSubmit;
+      return [...reviews, action.reviewToSubmit];
     default:
-      return singleReview;
+      return reviews;
   }
 };

@@ -6,14 +6,14 @@ import user from './user'
 import allGlasses from './glasses'
 import singleGlasses from './singleGlasses'
 import cart from './cart'
-import singleReview from './review'
+import reviews from './review'
 
 const reducer = combineReducers({
   user,
   allGlasses,
   singleGlasses,
   cart,
-  singleReview
+  reviews
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
