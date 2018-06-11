@@ -7,6 +7,16 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/page/:num', (req, res, next) => {
+  let pageNum = req.params.num;
+  Glasses.findAll({
+    limit: 9,
+    offset: Math.ceil(pageNum * 9)
+  })
+  .then(glasses => res.json(glasses))
+  .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   Glasses.create(req.body)
     .then(glasses => {

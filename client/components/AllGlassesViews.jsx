@@ -38,7 +38,7 @@ export function GlassesCardView({ glasses }) {
     );
 }
 
-export function SelectCategoryMenu({handleSelect, isAdmin}) {
+export function SelectCategoryMenu({handleSelect, isAdmin, handleClick}) {
       const addGlassesBtn = isAdmin ? (
           <button type="button" className="btn btn-primary"> + Add Item + </button>
         ) : null;
@@ -66,6 +66,7 @@ export function SelectCategoryMenu({handleSelect, isAdmin}) {
                 </select>
               </div>
               <SearchBarContainer />
+              <Link to="/all/page/1">Next</Link>
             </form>
             <Link to="/glasses/form">{addGlassesBtn}</Link>
           </div>
