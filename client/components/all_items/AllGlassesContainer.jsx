@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { allGlassesThunk } from '../store';
+import { allGlassesThunk } from '../../store';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { GlassesCardView, SelectCategoryMenu } from './';
+import { GlassesCardView, SelectCategoryMenu } from '../';
 
 class AllGlasses extends Component {
   constructor() {
@@ -59,7 +59,6 @@ class AllGlasses extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(ownProps);
   return {
     // what if we do trade off
     // we can implement filtering a page => ont the frontend
