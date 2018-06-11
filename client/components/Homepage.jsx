@@ -10,21 +10,21 @@ const Homepage = () => {
       </ol>
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <img className="d-block w-100" src="http://via.placeholder.com/1920x900" alt="First slide" />
+          <img className="d-block w-100" src="http://www.dogster.com/wp-content/uploads/2015/05/Screen%20shot%202012-04-02%20at%206.40.17%20AM.png" alt="First slide" />
           <div className="carousel-caption d-none d-md-block">
             <h5>Summer Vacation Must-Haves</h5>
             <button type="button" className="btn btn-info">SHOP WHILE THEY LASTS!</button>
           </div>
         </div>
         <div className="carousel-item">
-          <img className="d-block w-100" src="http://via.placeholder.com/1920x900" alt="Second slide" />
+          <img className="d-block w-100" src="http://via.placeholder.com/935x451" alt="Second slide" />
           <div className="carousel-caption d-none d-md-block">
             <h5>SUNGLASSES UNDER $20</h5>
             <button type="button" className="btn btn-info">SHOP</button>
           </div>
         </div>
         <div className="carousel-item">
-          <img className="d-block w-100" src="http://via.placeholder.com/1920x900" alt="Third slide" />
+          <img className="d-block w-100" src="http://via.placeholder.com/935x451" alt="Third slide" />
           <div className="carousel-caption d-none d-md-block">
             <h5>BESTSELLERS</h5>
             <button type="button" className="btn btn-info">SHOP</button>
