@@ -17,10 +17,11 @@ var faker = require('faker');
  */
 function usersPromises() {
   let arr = []
-  for (let i =0; i < 10; i++) {
+  for (let i =0; i < 1; i++) {
     arr.push(User.create({
-      email: faker.internet.email(), 
-      password: faker.internet.password()
+      email: 'admin@gmail.com', 
+      password: '123',
+      isAdmin : true
     }))
   }
   return arr
