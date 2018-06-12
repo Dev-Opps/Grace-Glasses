@@ -29,6 +29,7 @@ Orders.beforeValidate(order => {
 //   })
 // })
 
+
 const OrdersProducts = db.define('OrdersProducts', {
   productPrice: {
     type: Sequelize.INTEGER

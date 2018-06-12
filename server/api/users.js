@@ -58,7 +58,9 @@ router.post('/:id/add-to-cart', (req, res, next) => {
                   upc: upc
                 })
                   // do we need to send it???
-                  .then(orderProductsRow => {})
+                  .then(orderProductsRow => {
+                    res.status(201).send();
+                  })
               );
             })
             .catch(next);
@@ -72,22 +74,24 @@ router.post('/:id/add-to-cart', (req, res, next) => {
             }
           }).then(productInCart => {
             if (!productInCart) {
-              OrdersProducts.create({
+              return OrdersProducts.create({
                 orderId: order.id,
                 glassId: id,
                 productPrice: price,
                 upc: upc
               })
-                .then(orderProductsRow => {})
+                .then(orderProductsRow => {
+                  res.status(201).send();
+                })
                 .catch(next);
             } else {
               productInCart.increment('quantity');
+              res.status(201).send();
             }
           });
         }
       })
       .catch(next);
-    res.status(201).send('something');
   }
 });
 
@@ -122,10 +126,52 @@ router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
         return itemToDelete.destroy();
       })
       .then(destroyedItem => {
-        res.status(204).send(destroyedItem.id);
+        res.status(204).send();
       })
       .catch(next);
   });
+});
+
+router.post('/:userId/sync-local-storage-with-db/', (req, res, next) => {
+  console.log(req.body);
+  const cartFromLS = req.body;
+  // assume user does not have a cart in db
+  if (cartFromLS.length) {
+    Orders.findOne({
+      where: {
+        userId: req.session.passport.user,
+        status: 'UNPAID'
+      }
+    })
+      .then(backendCart => {
+        if(backendCart) return backendCart.destroy();
+        else return
+      })
+      .then(deleted => {
+        return Orders.create({
+          userId: req.session.passport.user
+        });
+      })
+      .then(createdOrder => {
+        Promise.all(
+          cartFromLS.map(item => {
+            return Glasses.findById(item.id).then(oneItem => {
+              return OrdersProducts.create({
+                orderId: createdOrder.id,
+                glassId: item.id,
+                productPrice: oneItem.price,
+                upc: oneItem.upc
+              });
+            });
+          })
+        )
+          .then(updatedCart => {
+            console.log(updatedCart[0].get({ plain: true }));
+            res.status(200).send();
+          })
+          .catch(next);
+      });
+  }
 });
 
 // will go to utils or smth
