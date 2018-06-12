@@ -42,13 +42,19 @@ router.put('/:id', (req, res, next) => {
 
 //If put above works then use same logic below;
 router.delete('/:id', (req, res, next) => {
-  Review.destroy({
-    where: {
-      id: req.params.id
-    }
-  }).then( () => {
-    res.status(204).send();
-  });
+
+  let idOfUser = req.user.id;
+
+  Review.findById(req.params.id)
+    .then(foundReview => {
+      if (foundReview.userId === idOfUser){
+        foundReview.destroy(req.body)
+          .then(destroyedReview => res.status(201).json(destroyedReview));
+      } else {
+        res.status(403).send('Forbidden');
+      }
+    })
+    .catch(next)
 });
 
 module.exports = router;
