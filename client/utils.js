@@ -6,7 +6,7 @@ export const getCartFromLocalStorage = () => {
   } else {
     console.log('local storage', 'Too bad, no localStorage for us :(');
   }
-}
+};
 
 export const storageAvailable = type => {
   try {
@@ -31,7 +31,7 @@ export const storageAvailable = type => {
       storage.length !== 0
     );
   }
-}
+};
 
 export const addOrIncreaseQTY = (itemsInCart, newItem) => {
   var noMatch = true;
@@ -47,21 +47,21 @@ export const addOrIncreaseQTY = (itemsInCart, newItem) => {
     itemsInCart.push(newItem);
   }
   return itemsInCart;
-}
+};
 
-export const saveItemToLS = item =>  {
+export const saveItemToLS = item => {
   //cart is an array of objects {id : 1, quantity: 1}
-  let itemForLS = Object.assign({id : item.id, quantity : item.quantity})
+  let itemForLS = Object.assign({ id: item.id, quantity: item.quantity });
   let updatedCartObj = addOrIncreaseQTY(getCartFromLocalStorage(), itemForLS);
   setToLocalStorage(updatedCartObj);
-}
+};
 
 export const removeItemFromLS = itemID => {
-  let updatedCart = getCartFromLocalStorage().filter(item => item.id != itemID)
-  setToLocalStorage(updatedCart)
-}
+  let updatedCart = getCartFromLocalStorage().filter(item => item.id != itemID);
+  setToLocalStorage(updatedCart);
+};
 
 const setToLocalStorage = cart => {
-  window['localStorage'].clear()
+  window['localStorage'].clear();
   window['localStorage'].setItem('cart', JSON.stringify(cart));
-}
+};
