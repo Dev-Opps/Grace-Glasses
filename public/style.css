@@ -92,3 +92,7 @@ nav#footer-main {
 .userDeleteBtn {
   margin-left: 1em;
 }
+
+.googleSignIn {
+  width: 200px;
+}
