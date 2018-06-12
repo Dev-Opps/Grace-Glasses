@@ -16,6 +16,7 @@ function CartItemsList(props) {
     shape
   } = props.item;
   return (
+    
     <div id="accordion">
       <div className="card">
         <div className="card-header cart-header" id={`heading${id}`}>
@@ -139,7 +140,7 @@ class CartViewLoader extends Component {
     super();
   }
   componentDidMount() {
-    this.props.loadCart();
+    this.props.loadCart(this.props.user);
   }
   render() {
     return (
@@ -161,8 +162,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCart() {
-      dispatch(getItemsFromCartThunk());
+    loadCart(user) {
+      dispatch(getItemsFromCartThunk(user));
     },
     removeItem(itemID) {
       dispatch(removeItemFromCartThunk(itemID));

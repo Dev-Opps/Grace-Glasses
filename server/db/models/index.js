@@ -16,6 +16,7 @@ Orders.belongsTo(User);
 User.hasMany(Orders);
 
 Glasses.belongsToMany(Orders, { through: OrdersProducts });
+OrdersProducts.hasMany(Glasses);
 Orders.belongsToMany(Glasses, { through: OrdersProducts });
 
 module.exports = {
