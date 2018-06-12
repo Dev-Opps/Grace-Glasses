@@ -74,6 +74,14 @@ User.encryptPassword = function(plainText, salt) {
     .digest("hex");
 };
 
+User.findByEmail = function(email) {
+  return User.findOne({
+    where: {
+      email: email
+    }
+  })
+}
+
 /**
  * hooks
  */

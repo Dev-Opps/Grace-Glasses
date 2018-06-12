@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 export default class GlassesForm extends Component {
   constructor() {
@@ -14,11 +15,18 @@ export default class GlassesForm extends Component {
       imageUrl: '',
       upc: '',
       shape: '',
-      category: 'Kids'
+      category: 'Kids',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addGlasses = this.addGlasses.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handleAdminStatus = this.handleAdminStatus.bind(this);
+    this.handleAdminSubmit = this.handleAdminSubmit.bind(this);
+    this.handleDeleteSubmission = this.handleAdminSubmit.bind(this);
+
+    this.email = '';
+    this.isAdmin = '';
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -51,6 +59,44 @@ export default class GlassesForm extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.addGlasses(this.state);
+  }
+
+  handleEmail(event){
+    this.email = event.target.value;
+  }
+
+  handleAdminStatus(event){
+    this.isAdmin = event.target.value;
+  }
+
+  async handleDeleteSubmission(event) {
+    event.preventDefault();
+    let targetId;
+
+    let foundUser = await axios.get(`/api/users/${this.email}`)
+    .then(res => res.data)
+    .then(foundUser => targetId = foundUser.id)
+    .catch(err => console.log(err))
+
+    axios.delete(`/api/users/${targetId}`)
+    .then(res => res.data)
+    .then(deletedUser => console.log("edit", deletedUser))
+    .catch(err => console.log(err))
+  }
+
+  async handleAdminSubmit(event){
+    event.preventDefault();
+    let targetId;
+
+    let foundUser = await axios.get(`/api/users/${this.email}`)
+    .then(res => res.data)
+    .then(foundUser => targetId = foundUser.id)
+    .catch(err => console.log(err))
+
+    axios.put(`/api/users/${targetId}`, {isAdmin: this.isAdmin})
+    .then(res => res.data)
+    .then(editedUser => console.log("edit", editedUser))
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -153,6 +199,33 @@ export default class GlassesForm extends Component {
           </div>
           <button type="submit" className="btn btn-primary">
             Submit
+          </button>
+        </form>
+        <form>
+          <label>Add Admin</label>
+          <label>New Admin's Email</label>
+          <input
+            type="text"
+            name="email"
+            // value=""
+            className="form-control"
+            id="exampleFormControlInput1"
+            onChange={this.handleEmail}
+          />
+          <label>Admin Status</label>
+          <input
+            type="text"
+            name="status"
+            // value=""
+            className="form-control"
+            id="exampleFormControlInput1"
+            onChange={this.handleAdminStatus}
+          />
+          <button onSubmit={this.handleAdminSubmit} type="submit" className="btn btn-primary">
+            Submit
+          </button>
+          <button onSubmit={this.handleDeleteSubmission} type="submit" className="btn btn-danger">
+            Delete
           </button>
         </form>
       </div>
