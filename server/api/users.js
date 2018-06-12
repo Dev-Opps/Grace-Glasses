@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Orders, OrdersProducts } = require('../db/models');
+const { User, Orders, OrdersProducts, Glasses } = require('../db/models');
 
 module.exports = router;
 
@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/:id/cart', (req, res, next) => {
+router.post('/:id/add-to-cart', (req, res, next) => {
   const { id, price, upc } = req.body;
   if (req.session.passport.user == req.params.id) {
     Orders.find({
@@ -30,7 +30,6 @@ router.post('/:id/cart', (req, res, next) => {
             userId: req.session.passport.user
           })
             .then(createdOrder => {
-              
               OrdersProducts.create({
                 orderId: createdOrder.id,
                 glassId: id,
@@ -50,8 +49,7 @@ router.post('/:id/cart', (req, res, next) => {
               orderId: order.id,
               glassId: id
             }
-          })
-          .then(productInCart => {
+          }).then(productInCart => {
             if (!productInCart) {
               OrdersProducts.create({
                 orderId: order.id,
@@ -62,7 +60,7 @@ router.post('/:id/cart', (req, res, next) => {
                 .then(orderProductsRow => {})
                 .catch(next);
             } else {
-              productInCart.increment('quantity')
+              productInCart.increment('quantity');
             }
           });
         }
@@ -70,4 +68,45 @@ router.post('/:id/cart', (req, res, next) => {
       .catch(next);
     res.status(201).send('something');
   }
+});
+
+router.get('/:id/sync-cart', (req, res, next) => {
+  Orders.findOne({
+    where: {
+      userId: req.params.id,
+      status: 'UNPAID'
+    },
+    include: [{ model: Glasses }]
+  }).then(cart => {
+    if (cart) {
+      let itemsInCart = cart.glasses.map(item => {
+        const {
+          id,
+          title,
+          description,
+          price,
+          imageUrl,
+          upc,
+          shape,
+          category
+        } = item;
+        const { quantity } = item.OrdersProducts;
+        return Object.assign(
+          {},
+          {
+            id,
+            title,
+            description,
+            price,
+            imageUrl,
+            upc,
+            shape,
+            category,
+            quantity
+          }
+        );
+      });
+      res.json(itemsInCart);
+    }
+  });
 });
