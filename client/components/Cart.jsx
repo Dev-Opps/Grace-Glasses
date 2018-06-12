@@ -122,6 +122,8 @@ function CartView(props) {
 
       <p className="lead lead-body">
 
+      
+
       <CheckoutForm user={user} />
       {/* <Link to="/checkoutform">
         <button className="btn btn-primary btn-lg" role="button">

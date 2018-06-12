@@ -19,8 +19,8 @@ export default class CheckoutForm extends React.Component {
     return (
       <StripeCheckout
         token={this.onToken}
-        stripeKey="pk_test_C8JNuSYPaxSMyliDj2pt5LYe"
-        name="john"     
+        stripeKey="pk_test_C8JNuSYPaxSMyliDj2pt5LYe"    
+        billingAddress={true}
       />
     );
   }
