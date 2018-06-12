@@ -105,7 +105,7 @@ export default class GlassesForm extends Component {
   render() {
     return (
       <div>
-        <form >
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="exampleFormControlInput1">Title</label>
             <input
@@ -187,9 +187,6 @@ export default class GlassesForm extends Component {
               <option value="Kids">
                 Kids
               </option>
-
-
-
             </select>
           </div>
           <div className="form-group">

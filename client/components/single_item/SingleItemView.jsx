@@ -14,6 +14,9 @@ const SingleItemView = props => {
   } = props.singleGlasses;
   const isAdmin = props.user.isAdmin;
   const isLoggedIn = props.user.id;
+
+  const bodyPayload = "";
+  const ratingPayload = "";
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -122,13 +125,27 @@ const SingleItemView = props => {
         reviews.map(review => {
           return (
             <div key={review.id} className="card review-card col-5">
-              <h5 className="card-header">Featured</h5>
+              <h5 className="card-header">Written By User {review.userId}</h5>
               <div className="card-body">
                 <h5 className="card-title">Special title treatment</h5>
                 <p className="card-text">{review.body}</p>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
+                {isLoggedIn === review.userId &&
+                  <div>
+                    <button onClick={() => props.deleteReview(review.id)} type="button" className="btn btn-danger">
+                      Delete
+                    </button>
+                    <button onClick={() => props.editReview(review)} type="button" className="btn btn-warning">
+                      EDIT
+                    </button>
+                    <form onChange={props.handleChange}>
+                      <label>Update your customer review</label>
+                        <textarea rows="3" cols="60" type="text" name="body" value="" />
+                      <label>Rating</label>
+                        <input type="text" name="rating" value="" />
+                      <button type="submit">Update Review</button>
+                    </form>
+                  </div>
+                }
               </div>
             </div>
         )})}
