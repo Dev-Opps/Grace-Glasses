@@ -1,6 +1,6 @@
 const db = require('../db.js');
 const Sequelize = require('sequelize');
-const {Glasses} = require('./')
+const { Glasses } = require('./');
 
 const Orders = db.define('orders', {
   orderNumber: {
@@ -9,7 +9,21 @@ const Orders = db.define('orders', {
     unique: true
   },
   totalPrice: {
-    type: Sequelize.INTEGER
+    type: Sequelize.VIRTUAL,
+    get() {
+      OrdersProducts.findAll({
+        where: {
+          orderId: this.id
+        }
+      })
+      .then(products => {
+        var totalPriceCalculator = products.reduce((prev, current) => {
+          return prev + current.quantity * current.productPrice;
+        }, 0);
+        console.log('please', totalPriceCalculator);
+        return totalPriceCalculator
+      });
+    }
   },
   status: {
     type: Sequelize.ENUM('UNPAID', 'PAID', 'SHIPPED', 'DELIVERED'),
@@ -20,15 +34,6 @@ const Orders = db.define('orders', {
 Orders.beforeValidate(order => {
   return (order.orderNumber = '' + order.userId + Date.parse(new Date()));
 });
-
-// Orders.beforeValidate(order => {
-//   const total = OrdersProducts.find({
-//     where : {
-
-//     }
-//   })
-// })
-
 
 const OrdersProducts = db.define('OrdersProducts', {
   productPrice: {
@@ -41,8 +46,7 @@ const OrdersProducts = db.define('OrdersProducts', {
     type: Sequelize.INTEGER,
     defaultValue: 1
   }
-}
-);
+});
 
 module.exports = {
   Orders,

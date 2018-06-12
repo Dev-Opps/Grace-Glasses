@@ -45,7 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitReview: (input) => dispatch(submitReviewThunk(input))
+    submitReview: input => dispatch(submitReviewThunk(input))
   }
 }
 

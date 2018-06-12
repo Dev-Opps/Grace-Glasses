@@ -127,7 +127,7 @@ function CartView(props) {
           Your subtotal is:{' '}
           <b>
             ${itemsInCart.reduce((prev, curr) => {
-              return prev + curr.price;
+              return prev + curr.price * curr.quantity;
             }, 0)}
           </b>
         </span>

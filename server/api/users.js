@@ -123,7 +123,8 @@ router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
       }
     })
       .then(itemToDelete => {
-        return itemToDelete.destroy();
+        if (itemToDelete) return itemToDelete.destroy()
+        else return 
       })
       .then(destroyedItem => {
         res.status(204).send();
@@ -133,7 +134,6 @@ router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
 });
 
 router.post('/:userId/sync-local-storage-with-db/', (req, res, next) => {
-  console.log(req.body);
   const cartFromLS = req.body;
   // assume user does not have a cart in db
   if (cartFromLS.length) {
@@ -166,7 +166,6 @@ router.post('/:userId/sync-local-storage-with-db/', (req, res, next) => {
           })
         )
           .then(updatedCart => {
-            console.log(updatedCart[0].get({ plain: true }));
             res.status(200).send();
           })
           .catch(next);

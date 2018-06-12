@@ -22,11 +22,7 @@ const Glasses = db.define('glasses', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue:
-      'https://static.zennioptical.com/marketing/campaign/premium-sunglasses/Premium-Sunglasses-Men/premium-sunglasses-plp-men-md.jpg',
-    validate: {
-      isUrl: true
-    }
+    defaultValue: 'https://static.zennioptical.com/marketing/campaign/premium-sunglasses/Premium-Sunglasses-Men/premium-sunglasses-plp-men-md.jpg',
   },
   upc: {
     type: Sequelize.STRING,
