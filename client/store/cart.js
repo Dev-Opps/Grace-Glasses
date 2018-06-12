@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {
   saveItemToLS,
   addOrIncreaseQTY,
-  storageAvailable,
   getCartFromLocalStorage,
   removeItemFromLS
 } from '../utils';
@@ -44,12 +43,11 @@ export const removeItemFromCartThunk = itemId => {
 }
 
 export const addItemToCartThunk = (item, user) => {
-  console.log('HERE', item)
   return dispatch => {
     dispatch(addItemToCart(item));
     saveItemToLS(item);
     if (user.id) {
-      axios.post(`/api/users/${user.id}/cart`, item)
+      axios.post(`/api/users/${user.id}/add-to-cart`, item)
       .then(res => res.data)
       .then(something => {
         console.log(something)
@@ -59,14 +57,16 @@ export const addItemToCartThunk = (item, user) => {
   };
 };
 
-export const getItemsFromCartThunk = () => {
+export const getItemsFromCartThunk = (user) => {
+  let itemsIDs;
+  console.log("from thunk", user)
   return dispatch => {
-    let cartFromLS = getCartFromLocalStorage();
+    const cartFromLS = getCartFromLocalStorage();
     // we send an array of ID's to update info
-    let itemsIDs = cartFromLS.map(item => {
+    itemsIDs = cartFromLS.map(item => {
       return item.id;
     });
-    console.log('cart from LS', getCartFromLocalStorage())
+    if(!user)  {
     axios
       .put('/api/glasses/cart-info', itemsIDs)
       .then(res => res.data)
@@ -77,7 +77,24 @@ export const getItemsFromCartThunk = () => {
         dispatch(getItemsFromCart(updatedCartInfo));
       })
       .catch(err => console.error(err));
-  };
+    }
+    else {
+      // console.log("!!!!!userid",user.id)
+      axios.get(`/api/users/${user.id}/sync-cart`)
+      .then(res => res.data)
+      .then(cartFromBackEnd => dispatch(getItemsFromCart(cartFromBackEnd)))
+      .catch(err => console.error(err));
+    }
+
+
+    // else {
+    //   axios
+    //   .put(`/api/users/${user.id}/sync-cart`, itemsIDs)
+    //   .then(res => res.data)
+    //   .then(items => console.log(items))
+    //   .catch(err => console.log(err))
+    // }
+  }
 };
 
 export default (itemsInCart = [], action) => {
@@ -93,3 +110,4 @@ export default (itemsInCart = [], action) => {
       return itemsInCart;
   }
 };
+
