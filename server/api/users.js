@@ -14,6 +14,26 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  User.findById(req.params.id)
+  .then(foundUser => foundUser.update(req.body))
+  .then(editedUser => res.json(editedUser))
+  .catch(next)
+})
+
+router.delete('/:id', (req, res, next) => {
+  User.findById(req.params.id)
+    .then(foundUser => foundUser.destroy())
+    .then(deletedUser => res.json(deletedUser))
+    .catch(next)
+})
+
+router.get('/:email', (req, res, next) => {
+  User.findByEmail(req.params.email)
+  .then(foundUser => res.json(foundUser))
+  .catch(next)
+})
+
 router.post('/:id/add-to-cart', (req, res, next) => {
   const { id, price, upc } = req.body;
   if (req.session.passport.user == req.params.id) {
