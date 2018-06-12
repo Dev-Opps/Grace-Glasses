@@ -37,41 +37,45 @@ const removeItemFromCart = itemId => {
 
 export const removeItemFromCartThunk = (itemId, user) => {
   return dispatch => {
-    dispatch(removeItemFromCart(itemId));
-    removeItemFromLS(itemId);
     if (user.id) {
       axios
         .delete(`/api/users/${user.id}/delete-from-cart/${itemId}`)
-        .then(res => console.log('item deleted from cart', res.status))
+        .then(res => {
+          if (res.status == 204) dispatch(removeItemFromCart(itemId));
+        })
         .catch(err => console.log(err));
+    } else {
+      removeItemFromLS(itemId);
+      dispatch(removeItemFromCart(itemId));
     }
   };
 };
 
 export const addItemToCartThunk = (item, user) => {
   return dispatch => {
-    // what if we have network error? Need to move it inside then?
-    dispatch(addItemToCart(item));
-    saveItemToLS(item);
     if (user.id) {
       axios
         .post(`/api/users/${user.id}/add-to-cart`, item)
-        .then(res => console.log('item added to backend cart', res.status))
+        .then(res => {
+          if (res.status == 201) dispatch(addItemToCart(item));
+        })
         .catch(err => console.log(err));
+    } else {
+      saveItemToLS(item);
+      dispatch(addItemToCart(item));
     }
   };
 };
 
 export const getItemsFromCartThunk = user => {
   let itemsIDs;
-  console.log('from thunk', user);
   return dispatch => {
-    const cartFromLS = getCartFromLocalStorage();
-    // we send an array of ID's to update info
-    itemsIDs = cartFromLS.map(item => {
-      return item.id;
-    });
-    if (!user) {
+    if (!user.id) {
+      const cartFromLS = getCartFromLocalStorage();
+      // we send an array of ID's to update info
+      itemsIDs = cartFromLS.map(item => {
+        return item.id;
+      });
       axios
         .put('/api/glasses/cart-info', itemsIDs)
         .then(res => res.data)
@@ -83,13 +87,15 @@ export const getItemsFromCartThunk = user => {
         })
         .catch(err => console.error(err));
     } else {
-      // console.log("!!!!!userid",user.id)
       axios
         .get(`/api/users/${user.id}/sync-cart`)
         .then(res => res.data)
         .then(cartFromBackEnd => dispatch(getItemsFromCart(cartFromBackEnd)))
         .catch(err => console.error(err));
     }
+  };
+};
+
 
     // else {
     //   axios
@@ -98,8 +104,6 @@ export const getItemsFromCartThunk = user => {
     //   .then(items => console.log(items))
     //   .catch(err => console.log(err))
     // }
-  };
-};
 
 export default (itemsInCart = [], action) => {
   var cartDeepCopy = _.cloneDeep(itemsInCart);
