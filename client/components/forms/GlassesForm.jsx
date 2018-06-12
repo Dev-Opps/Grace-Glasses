@@ -187,9 +187,6 @@ export default class GlassesForm extends Component {
               <option value="Kids">
                 Kids
               </option>
-
-
-
             </select>
           </div>
           <div className="form-group">
