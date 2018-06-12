@@ -14,6 +14,7 @@ const SingleItemView = props => {
   } = props.singleGlasses;
   const isAdmin = props.isAdmin;
   const isLoggedIn = props.id;
+  // console.log('~~~~', props.user)
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -87,7 +88,7 @@ const SingleItemView = props => {
             >
               ADD TO CART
             </a>
-            <ReviewForm />{' '}
+            {props.user.id && <ReviewForm />}
             {isAdmin ? (
               <div>
                 <button
@@ -118,10 +119,10 @@ const SingleItemView = props => {
         </div>
       </div>
 
-      {reviews && id &&
+      {reviews &&
         reviews.map(review => {
           return (
-            <div key={id} className="card review-card col-5">
+            <div key={review.id} className="card review-card col-5">
               <h5 className="card-header">Featured</h5>
               <div className="card-body">
                 <h5 className="card-title">Special title treatment</h5>
