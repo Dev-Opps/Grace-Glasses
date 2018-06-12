@@ -12,9 +12,8 @@ const SingleItemView = props => {
     upc,
     reviews
   } = props.singleGlasses;
-  const isAdmin = props.isAdmin;
-  const isLoggedIn = props.id;
-  // console.log('~~~~', props.user)
+  const isAdmin = props.user.isAdmin;
+  const isLoggedIn = props.user.id;
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -88,7 +87,6 @@ const SingleItemView = props => {
             >
               ADD TO CART
             </a>
-            {props.user.id && <ReviewForm />}
             {isAdmin ? (
               <div>
                 <button
@@ -115,6 +113,7 @@ const SingleItemView = props => {
                 </Link>
               </div>
             ) : null}
+            {isLoggedIn && <ReviewForm />}
           </div>
         </div>
       </div>

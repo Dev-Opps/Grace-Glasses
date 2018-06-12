@@ -21,10 +21,6 @@ form div {
   display: inline-block;
 }
 
-button {
-  margin-left: 1em;
-}
-
 nav#footer-main {
   position: sticky;
   margin-top: 25vh
