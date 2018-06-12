@@ -46,14 +46,13 @@ const Navbar = props => {
             </Link>
           </li>
         </ul>
-
         <Link to="/cart">
           <button type="button" className="btn btn-info">
             Cart
+            {' '}
             <span className="badge badge-light">
               {props.numberOfItemsInCart()}
             </span>
-            <span className="sr-only">Items in Cart</span>
           </button>
         </Link>
         {isAdmin ? <Link to="/admin/form">Admin Dashboard</Link> : null}

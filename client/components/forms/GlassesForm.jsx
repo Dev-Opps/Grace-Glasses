@@ -181,7 +181,7 @@ export default class GlassesForm extends Component {
             >
               <option value="Men">Men</option>
               <option value="Women">Women</option>
-              <option selected value="Kids">
+              <option value="Kids">
                 Kids
               </option>
             </select>
@@ -224,7 +224,7 @@ export default class GlassesForm extends Component {
           <button onSubmit={this.handleAdminSubmit} type="submit" className="btn btn-primary">
             Submit
           </button>
-          <button onSubmit={this.handleDeleteSubmission} type="submit" className="btn btn-danger">
+          <button onSubmit={this.handleDeleteSubmission} type="submit" className="userDeleteBtn btn btn-danger">
             Delete
           </button>
         </form>
