@@ -222,10 +222,10 @@ export default class GlassesForm extends Component {
             id="exampleFormControlInput1"
             onChange={this.handleAdminStatus}
           />
-          <button onSubmit={this.handleAdminSubmit} type="submit" className="btn btn-primary">
+          <button onClick={this.handleAdminSubmit} type="button" className="btn btn-primary">
             Submit
           </button>
-          <button onSubmit={this.handleDeleteSubmission} type="submit" className="userDeleteBtn btn btn-danger">
+          <button onClick={this.handleDeleteSubmission} type="button" className="userDeleteBtn btn btn-danger">
 
             Delete
           </button>
