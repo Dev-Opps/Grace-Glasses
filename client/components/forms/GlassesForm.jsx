@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { connect } from 'react-redux';
 
 export default class GlassesForm extends Component {
   constructor() {
@@ -23,7 +21,7 @@ export default class GlassesForm extends Component {
     this.handleEmail = this.handleEmail.bind(this);
     this.handleAdminStatus = this.handleAdminStatus.bind(this);
     this.handleAdminSubmit = this.handleAdminSubmit.bind(this);
-    this.handleDeleteSubmission = this.handleAdminSubmit.bind(this);
+    this.handleDeleteSubmission = this.handleDeleteSubmission.bind(this);
 
     this.email = '';
     this.isAdmin = '';
@@ -33,7 +31,6 @@ export default class GlassesForm extends Component {
     const stateFromLink = props.location.state;
     if (stateFromLink) {
      const newState = Object.assign({}, stateFromLink);
-    //  delete newState.id
      return newState;
   }
     }
@@ -50,8 +47,8 @@ export default class GlassesForm extends Component {
     const operation = glasses.id === '' ? axios.post('/api/glasses', newGlasses) : axios.put(`/api/glasses/${glasses.id}`, glasses)
      await operation
       .then(res => res.data)
-      .then(glasses => {
-        this.props.history.push(`/glasses/${glasses.id}`)
+      .then(gotGlasses => {
+        this.props.history.push(`/glasses/${gotGlasses.id}`)
     })
       .catch(err => console.log(err));
     }
@@ -73,36 +70,42 @@ export default class GlassesForm extends Component {
     event.preventDefault();
     let targetId;
 
-    let foundUser = await axios.get(`/api/users/${this.email}`)
-    .then(res => res.data)
-    .then(foundUser => targetId = foundUser.id)
-    .catch(err => console.log(err))
+    await axios.get(`/api/users/${this.email}`)
+      .then(res => res.data)
+      .then(foundUser => {
+        targetId = foundUser.id
+      })
+      .catch(err => console.log(err))
 
     axios.delete(`/api/users/${targetId}`)
-    .then(res => res.data)
-    .then(deletedUser => console.log("edit", deletedUser))
-    .catch(err => console.log(err))
+      .then(res => res.data)
+      .then(deletedUser => console.log('edit', deletedUser))
+      .catch(err => console.log(err))
+
+    alert(`${this.email} was deleted.`)
   }
 
   async handleAdminSubmit(event){
     event.preventDefault();
     let targetId;
 
-    let foundUser = await axios.get(`/api/users/${this.email}`)
+    await axios.get(`/api/users/${this.email}`)
     .then(res => res.data)
-    .then(foundUser => targetId = foundUser.id)
+    .then(foundUser => {
+      targetId = foundUser.id
+    })
     .catch(err => console.log(err))
 
     axios.put(`/api/users/${targetId}`, {isAdmin: this.isAdmin})
     .then(res => res.data)
-    .then(editedUser => console.log("edit", editedUser))
+    .then(editedUser => console.log('edit', editedUser))
     .catch(err => console.log(err))
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form >
           <div className="form-group">
             <label htmlFor="exampleFormControlInput1">Title</label>
             <input
@@ -184,6 +187,9 @@ export default class GlassesForm extends Component {
               <option value="Kids">
                 Kids
               </option>
+
+
+
             </select>
           </div>
           <div className="form-group">
@@ -207,7 +213,6 @@ export default class GlassesForm extends Component {
           <input
             type="text"
             name="email"
-            // value=""
             className="form-control"
             id="exampleFormControlInput1"
             onChange={this.handleEmail}
@@ -216,7 +221,6 @@ export default class GlassesForm extends Component {
           <input
             type="text"
             name="status"
-            // value=""
             className="form-control"
             id="exampleFormControlInput1"
             onChange={this.handleAdminStatus}
@@ -225,6 +229,7 @@ export default class GlassesForm extends Component {
             Submit
           </button>
           <button onSubmit={this.handleDeleteSubmission} type="submit" className="userDeleteBtn btn btn-danger">
+
             Delete
           </button>
         </form>
