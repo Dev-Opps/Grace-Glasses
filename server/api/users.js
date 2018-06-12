@@ -46,19 +46,20 @@ router.post('/:id/add-to-cart', (req, res, next) => {
       .then(order => {
         if (!order) {
           // want to create an order and add item
-          Orders.create({
+          return Orders.create({
             userId: req.session.passport.user
           })
             .then(createdOrder => {
-              OrdersProducts.create({
-                orderId: createdOrder.id,
-                glassId: id,
-                productPrice: price,
-                upc: upc
-              })
-                // do we need to send it???
-                .then(orderProductsRow => {})
-                .catch(err => console.log(err));
+              return (
+                OrdersProducts.create({
+                  orderId: createdOrder.id,
+                  glassId: id,
+                  productPrice: price,
+                  upc: upc
+                })
+                  // do we need to send it???
+                  .then(orderProductsRow => {})
+              );
             })
             .catch(next);
         } else {
@@ -99,34 +100,61 @@ router.get('/:id/sync-cart', (req, res, next) => {
     include: [{ model: Glasses }]
   }).then(cart => {
     if (cart) {
-      let itemsInCart = cart.glasses.map(item => {
-        const {
-          id,
-          title,
-          description,
-          price,
-          imageUrl,
-          upc,
-          shape,
-          category
-        } = item;
-        const { quantity } = item.OrdersProducts;
-        return Object.assign(
-          {},
-          {
-            id,
-            title,
-            description,
-            price,
-            imageUrl,
-            upc,
-            shape,
-            category,
-            quantity
-          }
-        );
-      });
-      res.json(itemsInCart);
+      res.json(mergeCart(cart));
     }
   });
 });
+
+router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
+  Orders.findOne({
+    where: {
+      userId: req.params.userId,
+      status: 'UNPAID'
+    }
+  }).then(cart => {
+    OrdersProducts.find({
+      where: {
+        orderId: cart.id,
+        glassId: req.params.itemId
+      }
+    })
+      .then(itemToDelete => {
+        return itemToDelete.destroy();
+      })
+      .then(destroyedItem => {
+        res.status(204).send(destroyedItem.id);
+      })
+      .catch(next);
+  });
+});
+
+// will go to utils or smth
+const mergeCart = cart => {
+  return cart.glasses.map(item => {
+    const {
+      id,
+      title,
+      description,
+      price,
+      imageUrl,
+      upc,
+      shape,
+      category
+    } = item;
+    const { quantity } = item.OrdersProducts;
+    return Object.assign(
+      {},
+      {
+        id,
+        title,
+        description,
+        price,
+        imageUrl,
+        upc,
+        shape,
+        category,
+        quantity
+      }
+    );
+  });
+};

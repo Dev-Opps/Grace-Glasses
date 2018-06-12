@@ -35,57 +35,61 @@ const removeItemFromCart = itemId => {
   };
 };
 
-export const removeItemFromCartThunk = itemId => {
+export const removeItemFromCartThunk = (itemId, user) => {
   return dispatch => {
-    dispatch(removeItemFromCart(itemId))
-    removeItemFromLS(itemId)
-  }
-}
-
-export const addItemToCartThunk = (item, user) => {
-  return dispatch => {
-    dispatch(addItemToCart(item));
-    saveItemToLS(item);
+    dispatch(removeItemFromCart(itemId));
+    removeItemFromLS(itemId);
     if (user.id) {
-      axios.post(`/api/users/${user.id}/add-to-cart`, item)
-      .then(res => res.data)
-      .then(something => {
-        console.log(something)
-      })
-      .catch(err => console.log(err))
+      axios
+        .delete(`/api/users/${user.id}/delete-from-cart/${itemId}`)
+        .then(res => console.log('item deleted from cart', res.status))
+        .catch(err => console.log(err));
     }
   };
 };
 
-export const getItemsFromCartThunk = (user) => {
+export const addItemToCartThunk = (item, user) => {
+  return dispatch => {
+    // what if we have network error? Need to move it inside then?
+    dispatch(addItemToCart(item));
+    saveItemToLS(item);
+    if (user.id) {
+      axios
+        .post(`/api/users/${user.id}/add-to-cart`, item)
+        .then(res => console.log('item added to backend cart', res.status))
+        .catch(err => console.log(err));
+    }
+  };
+};
+
+export const getItemsFromCartThunk = user => {
   let itemsIDs;
-  console.log("from thunk", user)
+  console.log('from thunk', user);
   return dispatch => {
     const cartFromLS = getCartFromLocalStorage();
     // we send an array of ID's to update info
     itemsIDs = cartFromLS.map(item => {
       return item.id;
     });
-    if(!user)  {
-    axios
-      .put('/api/glasses/cart-info', itemsIDs)
-      .then(res => res.data)
-      .then(itemsInfoFromDB => {
-        let updatedCartInfo = itemsInfoFromDB.map((item, idx) => {
-          return Object.assign({}, item, cartFromLS[idx]);
-        });
-        dispatch(getItemsFromCart(updatedCartInfo));
-      })
-      .catch(err => console.error(err));
-    }
-    else {
+    if (!user) {
+      axios
+        .put('/api/glasses/cart-info', itemsIDs)
+        .then(res => res.data)
+        .then(itemsInfoFromDB => {
+          let updatedCartInfo = itemsInfoFromDB.map((item, idx) => {
+            return Object.assign({}, item, cartFromLS[idx]);
+          });
+          dispatch(getItemsFromCart(updatedCartInfo));
+        })
+        .catch(err => console.error(err));
+    } else {
       // console.log("!!!!!userid",user.id)
-      axios.get(`/api/users/${user.id}/sync-cart`)
-      .then(res => res.data)
-      .then(cartFromBackEnd => dispatch(getItemsFromCart(cartFromBackEnd)))
-      .catch(err => console.error(err));
+      axios
+        .get(`/api/users/${user.id}/sync-cart`)
+        .then(res => res.data)
+        .then(cartFromBackEnd => dispatch(getItemsFromCart(cartFromBackEnd)))
+        .catch(err => console.error(err));
     }
-
 
     // else {
     //   axios
@@ -94,7 +98,7 @@ export const getItemsFromCartThunk = (user) => {
     //   .then(items => console.log(items))
     //   .catch(err => console.log(err))
     // }
-  }
+  };
 };
 
 export default (itemsInCart = [], action) => {
@@ -105,9 +109,8 @@ export default (itemsInCart = [], action) => {
     case ADD_ITEM_TO_CART:
       return addOrIncreaseQTY(cartDeepCopy, action.oneItemInCart);
     case REMOVE_ITEM_FROM_CART:
-      return cartDeepCopy.filter(item => item.id != action.itemId)
+      return cartDeepCopy.filter(item => item.id != action.itemId);
     default:
       return itemsInCart;
   }
 };
-

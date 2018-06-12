@@ -71,7 +71,7 @@ function CartItemsList(props) {
               <button
                 className="btn btn-danger"
                 onClick={(e) => {
-                  props.removeItem(id)}
+                  props.removeItem(id, props.user)}
                 }
               >
                 I don't want this anymore!
@@ -111,6 +111,7 @@ function CartView(props) {
                 key={item.id}
                 item={item}
                 removeItem={props.removeItem}
+                user={user}
               />
             );
           })
@@ -165,8 +166,8 @@ const mapDispatchToProps = dispatch => {
     loadCart(user) {
       dispatch(getItemsFromCartThunk(user));
     },
-    removeItem(itemID) {
-      dispatch(removeItemFromCartThunk(itemID));
+    removeItem(itemID, user) {
+      dispatch(removeItemFromCartThunk(itemID, user));
     }
   };
 };
