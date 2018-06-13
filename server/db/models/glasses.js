@@ -10,7 +10,7 @@ const Glasses = db.define('glasses', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   quantity: {

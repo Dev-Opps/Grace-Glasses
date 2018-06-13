@@ -1,6 +1,6 @@
 /* global describe beforeEach it */
 
-const {expect} = require('chai')
+const { expect, assert } = require('chai')
 const db = require('../index')
 const Review = db.model('review')
 
@@ -15,7 +15,8 @@ describe('Review model', () => {
 
     beforeEach(() => {
       return Review.create({
-        body: 'These were an amazing pair of glasses! Glad I purchased them!'
+        body: 'These were an amazing pair of glasses! Glad I purchased them!',
+        rating: 7
       })
       .then(newReview => {
         exampleReview = newReview
@@ -48,6 +49,11 @@ describe('Review model', () => {
       function(result) {
         expect(result).to.be.an.instanceOf(Error);
       });
+    })
+
+    it('the rating should be a value from 0 up to and including 10', () => {
+      assert.isAtLeast(exampleReview.rating, 0);
+      assert.isAtMost(exampleReview.rating, 10);
     })
 
   }) // end describe('Model fields')
