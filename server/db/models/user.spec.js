@@ -1,6 +1,6 @@
 /* global describe beforeEach it */
 
-const { expec t} = require('chai')
+const { expect} = require('chai')
 const db = require('../index')
 const User = db.model('user')
 
