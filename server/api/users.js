@@ -3,11 +3,16 @@ const { User, Orders, OrdersProducts, Glasses } = require('../db/models');
 
 module.exports = router;
 
+function secure(req, res) {
+  const isUser = req.hasOwnProperty('user')
+  const isAdmin = isUser ? req.user.dataValues.isAdmin : false;
+  const allowed = isUser && isAdmin;
+  if (!allowed) return res.status(403).send('FORBIDDEN')
+}
+
 router.get('/', (req, res, next) => {
+  secure(req, res)
   User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
@@ -15,6 +20,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
+  secure(req, res)
   User.findById(req.params.id)
   .then(foundUser => foundUser.update(req.body))
   .then(editedUser => res.json(editedUser))
@@ -22,6 +28,7 @@ router.put('/:id', (req, res, next) => {
 })
 
 router.delete('/:id', (req, res, next) => {
+  secure(req, res)
   User.findById(req.params.id)
     .then(foundUser => foundUser.destroy())
     .then(deletedUser => res.json(deletedUser))
@@ -29,6 +36,7 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.get('/:email', (req, res, next) => {
+  secure(req, res)
   User.findByEmail(req.params.email)
   .then(foundUser => res.json(foundUser))
   .catch(next)
@@ -124,7 +132,7 @@ router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
     })
       .then(itemToDelete => {
         if (itemToDelete) return itemToDelete.destroy()
-        else return 
+        else return
       })
       .then(destroyedItem => {
         res.status(204).send();

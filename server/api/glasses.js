@@ -2,11 +2,9 @@ const router = require('express').Router();
 const { Glasses, Review } = require('../db/models');
 
 function secure(req, res) {
-  console.log(req.session.user);
   const isUser = req.hasOwnProperty('user')
   const isAdmin = isUser ? req.user.dataValues.isAdmin : false;
   const allowed = isUser && isAdmin;
-
   if (!allowed) return res.status(403).send('FORBIDDEN')
 }
 
@@ -31,7 +29,6 @@ router.put('/cart-info', (req, res, next) => {
   .catch(next)
 });
 
-// this will work for all routes, which contain id "param", like '/api/glasses/:id'
 router.param('id', (req, res, next, id) => {
   Glasses.findById(id, {include: [Review]})
     .then(glass => {
