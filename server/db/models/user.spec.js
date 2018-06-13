@@ -1,6 +1,6 @@
 /* global describe beforeEach it */
 
-const {expect} = require('chai')
+const { expec t} = require('chai')
 const db = require('../index')
 const User = db.model('user')
 
@@ -84,18 +84,15 @@ describe('User model', () => {
     })
 
     it('requires a firstName', () => {
-      exampleUser.firstName = null;
-      expect(exampleUser.validate).to.throw(Error)
+      expect(exampleUser.firstName).to.not.be.null
     })
 
     it('requires a lastName', () => {
-      exampleUser.lastName = null;
-      expect(exampleUser.validate).to.throw(Error)
+      expect(exampleUser.lastName).to.not.be.null
     })
 
     it('requires an email', () => {
-      exampleUser.email = null;
-      expect(exampleUser.validate).to.throw(Error)
+      expect(exampleUser.email).to.not.be.null
     })
 
   })
