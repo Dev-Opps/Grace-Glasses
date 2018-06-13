@@ -9,7 +9,7 @@ const Navbar = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link to="/" className="navbar-brand">
-        Homepage
+        <i className="fas fa-glasses fa-3x" />
       </Link>
       <button
         className="navbar-toggler"
@@ -48,7 +48,7 @@ const Navbar = props => {
         </ul>
         <Link to="/cart">
           <button type="button" className="btn btn-info">
-            Cart
+            <i className="fas fa-shopping-cart fa-2x" />
             {' '}
             <span className="badge badge-light">
               {props.numberOfItemsInCart()}

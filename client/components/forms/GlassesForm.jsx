@@ -226,7 +226,6 @@ export default class GlassesForm extends Component {
             Submit
           </button>
           <button onClick={this.handleDeleteSubmission} type="button" className="userDeleteBtn btn btn-danger">
-
             Delete
           </button>
         </form>
