@@ -97,14 +97,6 @@ function CartView(props) {
         it immediately!
       </p>
       <hr className="my-4" />
-
-      {/* If user wasn't logged in and then decided to log in, we want to send information about his cart 
-        (IF CART EXISTS ON THE LOCAL STORAGE) together (or in parralel, right next after) loging request.
-
-        Also every time user is clicking to the cart button in navbar, we want to fetch our data from local storage, send it to the backed for update
-        and set recieved response to CURRENT_CART in our store.
-        */}
-
       {itemsInCart && itemsInCart.length
         ? itemsInCart.map(item => {
             return (
@@ -125,11 +117,6 @@ function CartView(props) {
       
 
       <CheckoutForm user={user} />
-      {/* <Link to="/checkoutform">
-        <button className="btn btn-primary btn-lg" role="button">
-          Let's checkout!
-        </button>
-        </Link> */}
         <span>
           Your subtotal is:{' '}
           <b>

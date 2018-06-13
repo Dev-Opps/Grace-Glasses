@@ -33,7 +33,6 @@ export const auth = (email, password, method) =>
   dispatch => {
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
-        // console.log(res.data)
         dispatch(getUser(res.data))
         history.push('/home')
         return res.data
@@ -41,7 +40,6 @@ export const auth = (email, password, method) =>
         dispatch(getUser({error: authError}))
       })
       .then(user => {
-        console.log('fuck the system',user)
         axios.post(`/api/users/${user.id}/sync-local-storage-with-db`, getCartFromLocalStorage())
         .then(res => console.log(res.status))
         .catch(err => console.log(err))

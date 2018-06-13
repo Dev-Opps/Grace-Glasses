@@ -4,7 +4,10 @@ import { SocialIcon } from 'react-social-icons';
 
 const Footer = () => {
   return (
-    <nav id="footer-main" className="navbar navbar-toggler fixed-bottom navbar-light bg-light">
+    <nav
+      id="footer-main"
+      className="navbar navbar-toggler fixed-bottom navbar-light bg-light"
+    >
       <a className="navbar-brand" href="#">
         Call 888-634-8893
       </a>

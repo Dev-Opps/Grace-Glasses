@@ -20,7 +20,6 @@ const Orders = db.define('orders', {
         var totalPriceCalculator = products.reduce((prev, current) => {
           return prev + current.quantity * current.productPrice;
         }, 0);
-        console.log('please', totalPriceCalculator);
         return totalPriceCalculator
       });
     }

@@ -4,8 +4,6 @@ import axios from 'axios'
 
 export default class CheckoutForm extends React.Component {
   onToken = token => {
-    console.log(token)
-
     axios.post('/api/checkout/save-stripe-token', token)
     .then(response => response.data)
     .then(data => {
@@ -15,7 +13,6 @@ export default class CheckoutForm extends React.Component {
 
 
   render() {
-    console.log(this.props.user);
     return (
       <StripeCheckout
         token={this.onToken}

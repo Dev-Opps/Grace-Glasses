@@ -4,14 +4,14 @@ const { User, Orders, OrdersProducts, Glasses } = require('../db/models');
 module.exports = router;
 
 function secure(req, res) {
-  const isUser = req.hasOwnProperty('user')
+  const isUser = req.hasOwnProperty('user');
   const isAdmin = isUser ? req.user.dataValues.isAdmin : false;
   const allowed = isUser && isAdmin;
-  if (!allowed) return res.status(403).send('FORBIDDEN')
+  if (!allowed) return res.status(403).send('FORBIDDEN');
 }
 
 router.get('/', (req, res, next) => {
-  secure(req, res)
+  secure(req, res);
   User.findAll({
     attributes: ['id', 'email']
   })
@@ -20,27 +20,27 @@ router.get('/', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-  secure(req, res)
+  secure(req, res);
   User.findById(req.params.id)
-  .then(foundUser => foundUser.update(req.body))
-  .then(editedUser => res.json(editedUser))
-  .catch(next)
-})
+    .then(foundUser => foundUser.update(req.body))
+    .then(editedUser => res.json(editedUser))
+    .catch(next);
+});
 
 router.delete('/:id', (req, res, next) => {
-  secure(req, res)
+  secure(req, res);
   User.findById(req.params.id)
     .then(foundUser => foundUser.destroy())
     .then(deletedUser => res.json(deletedUser))
-    .catch(next)
-})
+    .catch(next);
+});
 
 router.get('/:email', (req, res, next) => {
-  secure(req, res)
+  secure(req, res);
   User.findByEmail(req.params.email)
-  .then(foundUser => res.json(foundUser))
-  .catch(next)
-})
+    .then(foundUser => res.json(foundUser))
+    .catch(next);
+});
 
 router.post('/:id/add-to-cart', (req, res, next) => {
   const { id, price, upc } = req.body;
@@ -58,24 +58,20 @@ router.post('/:id/add-to-cart', (req, res, next) => {
             userId: req.session.passport.user
           })
             .then(createdOrder => {
-              return (
-                OrdersProducts.create({
-                  orderId: createdOrder.id,
-                  glassId: id,
-                  productPrice: price,
-                  upc: upc
-                })
-                  // do we need to send it???
-                  .then(orderProductsRow => {
-                    res.status(201).send();
-                  })
-              );
+              return OrdersProducts.create({
+                orderId: createdOrder.id,
+                glassId: id,
+                productPrice: price,
+                upc: upc
+              }).then(orderProductsRow => {
+                res.status(201).send();
+              });
             })
             .catch(next);
         } else {
           //want to update an order with an item
           //found order with status status unpaid and userid
-          OrdersProducts.findOne({
+          return OrdersProducts.findOne({
             where: {
               orderId: order.id,
               glassId: id
@@ -88,9 +84,7 @@ router.post('/:id/add-to-cart', (req, res, next) => {
                 productPrice: price,
                 upc: upc
               })
-                .then(orderProductsRow => {
-                  res.status(201).send();
-                })
+                .then(orderProductsRow => res.status(201).send())
                 .catch(next);
             } else {
               productInCart.increment('quantity');
@@ -131,8 +125,8 @@ router.delete('/:userId/delete-from-cart/:itemId', (req, res, next) => {
       }
     })
       .then(itemToDelete => {
-        if (itemToDelete) return itemToDelete.destroy()
-        else return
+        if (itemToDelete) return itemToDelete.destroy();
+        else return;
       })
       .then(destroyedItem => {
         res.status(204).send();
@@ -152,8 +146,8 @@ router.post('/:userId/sync-local-storage-with-db/', (req, res, next) => {
       }
     })
       .then(backendCart => {
-        if(backendCart) return backendCart.destroy();
-        else return
+        if (backendCart) return backendCart.destroy();
+        else return;
       })
       .then(deleted => {
         return Orders.create({

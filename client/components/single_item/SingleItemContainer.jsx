@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { singleGlassesThunk, deleteGlassesThunk, addItemToCartThunk, submitReviewThunk, deleteReviewThunk } from '../../store';
-import {SingleItemView} from '../';
+import {
+  singleGlassesThunk,
+  deleteGlassesThunk,
+  addItemToCartThunk,
+  submitReviewThunk,
+  deleteReviewThunk
+} from '../../store';
+import { SingleItemView } from '../';
 
 class SingleItemContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      body: "",
-      rating: ""
-    }
+      body: '',
+      rating: ''
+    };
   }
 
   componentDidMount() {
@@ -40,28 +46,28 @@ const mapState = state => {
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  const glassesId = ownProps.match.params.id
+  const glassesId = ownProps.match.params.id;
   return {
     loadSingleGlasses: () => {
       dispatch(singleGlassesThunk(glassesId, ownProps.history));
     },
     addItemToCart: (item, user) => {
       item.quantity = 1;
-      dispatch(addItemToCartThunk(item, user))
+      dispatch(addItemToCartThunk(item, user));
     },
     deleteGlasses: () => {
-      dispatch(deleteGlassesThunk(glassesId))
+      dispatch(deleteGlassesThunk(glassesId));
     },
-    deleteReview: (reviewId) => {
-      dispatch(deleteReviewThunk(reviewId))
+    deleteReview: reviewId => {
+      dispatch(deleteReviewThunk(reviewId));
     },
-    editReview: (review) => {
-      dispatch(deleteReviewThunk(review))
+    editReview: review => {
+      dispatch(deleteReviewThunk(review));
     },
-    handleChange: (ev) => {
-      this.setState({[ev.target.name]: ev.target.value})
+    handleChange: ev => {
+      this.setState({ [ev.target.name]: ev.target.value });
     }
-  }
+  };
 };
 
 export default connect(

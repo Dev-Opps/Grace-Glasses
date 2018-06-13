@@ -14,9 +14,6 @@ const SingleItemView = props => {
   } = props.singleGlasses;
   const isAdmin = props.user.isAdmin;
   const isLoggedIn = props.user.id;
-
-  // const bodyPayload = "";
-  // const ratingPayload = "";
   return (
     <div className="row justify-content-center">
       <div className="col-5">
@@ -117,7 +114,11 @@ const SingleItemView = props => {
               </div>
             ) : null}
             <hr />
-            {isLoggedIn ? <ReviewForm /> : <h3>Only logged-in users can write a review</h3>}
+            {isLoggedIn ? (
+              <ReviewForm />
+            ) : (
+              <h3>Only logged-in users can write a review</h3>
+            )}
           </div>
         </div>
       </div>
@@ -129,27 +130,47 @@ const SingleItemView = props => {
               <div className="card-body">
                 <h5 className="card-title">Rating: {review.rating}/10</h5>
                 <p className="card-text">{review.body}</p>
-                {isLoggedIn === review.userId &&
+                {isLoggedIn === review.userId && (
                   <div>
-                    <button onClick={() => props.deleteReview(review.id)} type="button" className=" reviewDeleteBtn btn btn-danger">
+                    <button
+                      onClick={() => props.deleteReview(review.id)}
+                      type="button"
+                      className=" reviewDeleteBtn btn btn-danger"
+                    >
                       Delete
                     </button>
-                    <button onClick={() => props.editReview(review)} type="button" className="btn btn-warning">
+                    <button
+                      onClick={() => props.editReview(review)}
+                      type="button"
+                      className="btn btn-warning"
+                    >
                       EDIT
                     </button>
                     <hr />
                     <form onChange={props.handleChange}>
                       <label>Update your customer review</label>
-                        <textarea rows="3" cols="60" type="text" name="body" value="" />
+                      <textarea
+                        rows="3"
+                        cols="60"
+                        type="text"
+                        name="body"
+                        value=""
+                      />
                       <label>Rating</label>
-                        <input placeholder="# from 1-10" type="text" name="rating" value="" />
+                      <input
+                        placeholder="# from 1-10"
+                        type="text"
+                        name="rating"
+                        value=""
+                      />
                       <button type="submit">Update Review</button>
                     </form>
                   </div>
-                }
+                )}
               </div>
             </div>
-        )})}
+          );
+        })}
     </div>
   );
 };
