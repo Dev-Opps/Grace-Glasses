@@ -96,15 +96,6 @@ export const getItemsFromCartThunk = user => {
   };
 };
 
-
-    // else {
-    //   axios
-    //   .put(`/api/users/${user.id}/sync-cart`, itemsIDs)
-    //   .then(res => res.data)
-    //   .then(items => console.log(items))
-    //   .catch(err => console.log(err))
-    // }
-
 export default (itemsInCart = [], action) => {
   var cartDeepCopy = _.cloneDeep(itemsInCart);
   switch (action.type) {

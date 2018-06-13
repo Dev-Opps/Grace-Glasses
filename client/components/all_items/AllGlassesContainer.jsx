@@ -29,7 +29,7 @@ class AllGlasses extends Component {
   handleSelect(ev) {
     this.setState({ category: ev.target.value });
   }
-  // Best way to pass in props to generate single view page when button is clicked is by passing in the props to the Link's state (but I can't get it to work).
+  
   render() {
     const { isAdmin, allGlasses } = this.props;
 
@@ -60,13 +60,6 @@ class AllGlasses extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    // what if we do trade off
-    // we can implement filtering a page => ont the frontend
-
-    // and clicking on nav panel as backend?? Cool?
-    menGlasses: () => {},
-    womenGlasses: () => {},
-    kidsGlasses: () => {},
     allGlasses: state.allGlasses,
     isAdmin: state.user.isAdmin
   };

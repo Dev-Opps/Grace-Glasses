@@ -28,9 +28,6 @@ export const singleGlassesThunk = (glassesId, history) => {
       .then(res => res.data)
       .then(singleGlasses => {
         dispatch(getSingleGlasses(singleGlasses));
-        // will probably still need it later?..
-        // history.push(glassesId)
-        // console.log('HISTORY in thunk: ', history)
       })
       .catch(err => console.log(err));
   };

@@ -5,18 +5,17 @@ class SearchBar extends Component {
     super();
     this.state = {
       userInput: ''
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(ev) {
     let inputLen = this.state.userInput.length;
-    this.setState({userInput: ev.target.value});
+    this.setState({ userInput: ev.target.value });
 
     if (inputLen === 1) {
       this.props.loadAllGlasses();
-    }
-    else {
+    } else {
       this.props.sendSearchInput(this.state.userInput);
     }
   }
@@ -24,9 +23,16 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <input value={this.state.userInput} onChange={this.handleChange} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+        <input
+          value={this.state.userInput}
+          onChange={this.handleChange}
+          className="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
       </div>
-    )
+    );
   }
 }
 
