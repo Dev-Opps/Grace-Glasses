@@ -29,7 +29,7 @@ class ReviewForm extends Component {
           <label>Write a customer review</label>
             <textarea rows="3" cols="60" type="text" name="body" value={this.state.body} onChange={this.handleChange} />
           <label>Rating</label>
-            <input type="text" name="rating" value={this.state.rating} onChange={this.handleChange} />
+            <input placeholder="# from 1-10" type="text" name="rating" value={this.state.rating} onChange={this.handleChange} />
           <button type="submit">Submit Review</button>
         </form>
       </div>
