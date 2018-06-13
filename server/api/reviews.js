@@ -24,8 +24,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-  //We need to test this after we create edit review frontend;
-
   let idOfUser = req.user.id;
 
   Review.findById(req.params.id)
@@ -40,9 +38,7 @@ router.put('/:id', (req, res, next) => {
     .catch(next)
 });
 
-//If put above works then use same logic below;
 router.delete('/:id', (req, res, next) => {
-
   let idOfUser = req.user.id;
 
   Review.findById(req.params.id)
