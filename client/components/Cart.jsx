@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getItemsFromCartThunk, removeItemFromCartThunk } from '../store';
+import {CheckoutForm} from './'
 
 function CartItemsList(props) {
   const {
@@ -120,9 +121,15 @@ function CartView(props) {
       <p />
 
       <p className="lead lead-body">
-        <a className="btn btn-primary btn-lg" href="#" role="button">
+
+      
+
+      <CheckoutForm user={user} />
+      {/* <Link to="/checkoutform">
+        <button className="btn btn-primary btn-lg" role="button">
           Let's checkout!
-        </a>
+        </button>
+        </Link> */}
         <span>
           Your subtotal is:{' '}
           <b>

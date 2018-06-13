@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllGlassesContainer, SingleItemContainer, GlassesForm, Homepage, Cart } from './components'
+import {Login, Signup, UserHome, AllGlassesContainer, SingleItemContainer, GlassesForm, Homepage, Cart, CheckoutForm } from './components'
+
 import {me} from './store'
 
 /**
@@ -26,12 +27,14 @@ class Routes extends Component {
           isLoggedIn &&
           <Route path="/account" component={UserHome} />
         }
+        {/* <Route path="/checkoutform" component={CheckoutForm} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/glasses/:id" component={SingleItemContainer} />
         <Route path="/all" component={AllGlassesContainer} />
         <Route path="/cart" component={Cart} />
         <Route path="/" component={Homepage} />
+        
         {/* Displays our Homepage component as a fallback */}
         <Route component={Homepage} />
       </Switch>

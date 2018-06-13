@@ -22,3 +22,4 @@ export { GlassesCardView, SelectCategoryMenu } from './all_items/AllGlassesViews
 
 export { default as Cart } from './Cart';
 export { default as Homepage} from './static_components/Homepage'
+export { default as CheckoutForm} from './forms/CheckoutForm'
